@@ -13,11 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'HKLBooks',
       theme: ThemeData(
         primaryColor: primaryColor,
+        scaffoldBackgroundColor: primaryColor,
       ),
-      home: const Loading(),
+      home:const Loading(),      
     );
   }
 }
