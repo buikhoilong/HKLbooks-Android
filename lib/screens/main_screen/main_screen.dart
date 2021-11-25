@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hkl_books/screens/home/home.dart';
-import '../../config.dart';
 import 'components/bottom_tab_bar.dart';
 
 class MainScreen extends StatefulWidget {

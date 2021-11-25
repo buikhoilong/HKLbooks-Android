@@ -15,7 +15,8 @@ class _LoadingState extends State<Loading> {
   Widget build(BuildContext context) {
     return EasySplashScreen(
       gradientBackground:
-          LinearGradient( colors: [
+          // ignore: prefer_const_literals_to_create_immutables
+          const LinearGradient( colors: [
         myGreen,
         Color(0xFF88ECAC),
       ]),
@@ -33,7 +34,7 @@ class _LoadingState extends State<Loading> {
         style: TextStyle(
             fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
       ),
-      navigator: MainScreen(),
+      navigator: const MainScreen(),
       durationInSeconds: 3,
     );
   }
