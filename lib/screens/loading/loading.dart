@@ -1,7 +1,7 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hkl_books/config.dart';
-import 'package:hkl_books/screens/home/home.dart';
+import 'package:hkl_books/screens/main_screen/main_screen.dart';
 
 class Loading extends StatefulWidget {
   const Loading({Key? key}) : super(key: key);
@@ -33,7 +33,7 @@ class _LoadingState extends State<Loading> {
         style: TextStyle(
             fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
       ),
-      navigator: Home(),
+      navigator: MainScreen(),
       durationInSeconds: 3,
     );
   }
