@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hkl_books/screens/loading/loading.dart';
+import 'package:hkl_books/screens/review_order/review_order.dart';
 import 'config.dart';
 
 void main() {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         primaryColor: primaryColor,
         scaffoldBackgroundColor: primaryColor,
       ),
-      home:const Loading(),      
+      home:const ReviewOrder(),      
     );
   }
 }
