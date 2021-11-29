@@ -3,11 +3,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../config.dart';
 
-class BottomTabBar extends StatelessWidget {
-  const BottomTabBar({
-    Key? key,
-  }) : super(key: key);
+class BottomTabBar extends StatefulWidget {
+  const BottomTabBar({Key? key, required this.pageIndex}) : super(key: key);
 
+  final int pageIndex;
+  @override
+  State<BottomTabBar> createState() => _BottomTabBarState();
+}
+
+class _BottomTabBarState extends State<BottomTabBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,6 +27,11 @@ class BottomTabBar extends StatelessWidget {
         selectedItemColor: myGreen,
         selectedIconTheme: const IconThemeData(color: myGreen),
         unselectedIconTheme: const IconThemeData(color: myGrey),
+        onTap: (value) {
+          setState(() {
+            //pageIndex = value;
+          });
+        },
         items: [
           BottomNavigationBarItem(
               icon: SvgPicture.asset("assets/icons/warehouse-grey.svg"),

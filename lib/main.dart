@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hkl_books/screens/review_order/review_order.dart';
+import 'package:hkl_books/screens/loading/loading.dart';
 import 'config.dart';
 
 void main() {
@@ -15,10 +15,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'HKLBooks',
       theme: ThemeData(
-        primaryColor: primaryColor,
+        primaryColor: myGreen,
+        colorScheme: const ColorScheme.light().copyWith(primary: myGreen),
         scaffoldBackgroundColor: primaryColor,
       ),
-      home:const ReviewOrder(),      
+      home: const Loading(),
     );
   }
 }
