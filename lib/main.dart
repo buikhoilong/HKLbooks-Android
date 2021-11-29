@@ -15,10 +15,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'HKLBooks',
       theme: ThemeData(
-        primaryColor: primaryColor,
+        primaryColor: myGreen,
+        colorScheme: const ColorScheme.light().copyWith(primary: myGreen),
         scaffoldBackgroundColor: primaryColor,
       ),
-      home:const Loading(),      
+      home: const Loading(),
     );
   }
 }
