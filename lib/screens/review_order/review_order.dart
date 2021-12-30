@@ -1,43 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-// ignore: import_of_legacy_library_into_null_safe
-// import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-void main() => runApp(const ReviewOrder());
-
-class ReviewOrder extends StatelessWidget {
+class ReviewOrder extends StatefulWidget {
   const ReviewOrder({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
-    );
-  }
+  _ReviewOrderState createState() => _ReviewOrderState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  _MyCustomState createState() => _MyCustomState();
-}
-
-class _MyCustomState extends State<MyHomePage> {
+class _ReviewOrderState extends State<ReviewOrder> {
   @override
   Widget build(BuildContext context) => Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text(
             'Review Order',
             style: TextStyle(color: Colors.white),
           ),
           centerTitle: true,
-          backgroundColor: Colors.lightGreen,
           automaticallyImplyLeading: false,
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
           ),
         ),

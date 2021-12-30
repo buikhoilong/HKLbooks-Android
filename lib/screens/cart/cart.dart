@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hkl_books/config.dart';
 import 'package:hkl_books/models/cart.dart';
+import 'package:hkl_books/screens/thanks/thanks.dart';
 import 'components/cart_item.dart';
 
 class Cart extends StatefulWidget {
@@ -232,7 +233,7 @@ class _CartState extends State<Cart> {
                     primary: Colors.lightGreen,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {},
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> Thanks())),
                   child: const Text(
                     'Thanh Toán',
                     style: TextStyle(

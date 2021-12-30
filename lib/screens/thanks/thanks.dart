@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:hkl_books/config.dart';
 import 'package:hkl_books/screens/main_screen/main_screen.dart';
 
-class Loading extends StatefulWidget {
-  const Loading({Key? key}) : super(key: key);
+class Thanks extends StatefulWidget {
+  const Thanks({Key? key}) : super(key: key);
 
   @override
-  State<Loading> createState() => _LoadingState();
+  State<Thanks> createState() => _ThanksState();
 }
 
-class _LoadingState extends State<Loading> {
+class _ThanksState extends State<Thanks> {
   @override
   Widget build(BuildContext context) {
     return EasySplashScreen(
@@ -24,22 +24,23 @@ class _LoadingState extends State<Loading> {
       logo: Image.asset('assets/images/logo.png'),
       logoSize: 200,
       title: const Text(
-        "HKLBooks",
-                style: TextStyle(
+        "Mua hàng thành công! \n Cảm ơn bạn đã mua hàng.",
+        style: TextStyle(
                           decoration: TextDecoration.none,
                           fontFamily: "Dancing Script",
-                          fontSize: 40,
+                          fontSize: 30,
                           height: 1.5,
                           fontWeight: FontWeight.w700,
                           fontStyle: FontStyle.italic,
                           color: Colors.white,
                           wordSpacing: 6,
                         ),
+          textAlign: TextAlign.center,
       ),
       showLoader: true,
       loadingText: const Text(
-        "Loading...",
-       style: TextStyle(
+        "Đang trở về kho sách!!!",
+                style: TextStyle(
                           decoration: TextDecoration.none,
                           fontFamily: "Dancing Script",
                           fontSize: 30,
@@ -51,7 +52,7 @@ class _LoadingState extends State<Loading> {
                         ),
       ),
       navigator: const MainScreen(),
-      durationInSeconds: 3,
+      durationInSeconds: 5,
     );
   }
 }
