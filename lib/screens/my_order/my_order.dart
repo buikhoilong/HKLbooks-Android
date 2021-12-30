@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hkl_books/config.dart';
 import 'package:hkl_books/screens/my_order/pages/my_order_cancelled.dart';
 import 'pages/my_order_wait_for_pay.dart';
 import 'pages/my_order_processing.dart';
@@ -6,28 +7,15 @@ import 'pages/my_order_being_transported.dart';
 import 'pages/my_order_delivered.dart';
 import 'pages/my_order_cancelled.dart';
 
-void main() => runApp(const MyApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class MyOrder extends StatefulWidget {
+  const MyOrder({Key? key}) : super(key: key);
 
   @override
-  _MyCustomState createState() => _MyCustomState();
+  _MyOrderState createState() => _MyOrderState();
 }
 
-class _MyCustomState extends State<MyHomePage> {
+class _MyOrderState extends State<MyOrder> {
   @override
   Widget build(BuildContext context) => DefaultTabController(
         length: 5,
@@ -39,7 +27,7 @@ class _MyCustomState extends State<MyHomePage> {
               icon: const Icon(Icons.arrow_back_ios),
               onPressed: () {},
             ),
-            backgroundColor: Colors.lightGreen,
+            backgroundColor: myGreen,
             elevation: 10,
             bottom: const TabBar(
               isScrollable: true,

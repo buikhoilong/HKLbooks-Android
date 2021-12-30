@@ -2,22 +2,22 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hkl_books/screens/cart/cart.dart';
 
 
 class Detail extends StatefulWidget {
   const Detail({Key? key}) : super(key: key);
   @override
-  _MycustomState createState() => _MycustomState();
+  _DetailState createState() => _DetailState();
 }
 
-class _MycustomState extends State<Detail> {
+class _DetailState extends State<Detail> {
   int counter = 0;
   // This widget is the root of your application.
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
           backgroundColor: Colors.lightGreen,
           body: ListView(
             children: [
@@ -26,7 +26,7 @@ class _MycustomState extends State<Detail> {
                   // ignore: avoid_unnecessary_containers
                   Container(
                     child: Image.asset(
-                      'images/BG-2.jpg',
+                      'assets/images/BG-2.jpg',
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -37,13 +37,15 @@ class _MycustomState extends State<Detail> {
                         // ignore: avoid_unnecessary_containers
                         Container(
                             child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.ac_unit_outlined))
+                                onPressed: () => Navigator.pop(context),
+                                icon: Icon(Icons.arrow_back_ios),color: Colors.white,iconSize: 30,)
                           ],
-                        )),
+                        ),
+                          margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        ),
                         // ignore: avoid_unnecessary_containers
                         Container(
                           child: Stack(
@@ -126,7 +128,7 @@ class _MycustomState extends State<Detail> {
                                                                 BorderRadius
                                                                     .circular(
                                                                         10))),
-                                                onPressed: () {},
+                                                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> Cart())),
                                               ),
                                             ),
                                           ],
@@ -160,7 +162,7 @@ class _MycustomState extends State<Detail> {
                                 child: Row(
                                   children: [
                                     Image.asset(
-                                      'images/thay-cau-hoi-doi-cuoc-doi.jpg',
+                                      'assets/images/thay-cau-hoi-doi-cuoc-doi.jpg',
                                       width: 130,
                                       height: 250,
                                       fit: BoxFit.contain,
@@ -797,8 +799,7 @@ class _MycustomState extends State<Detail> {
                 ],
               )
             ],
-          )),
-    );
+          ));
   }
 }
 
@@ -823,7 +824,7 @@ class book extends StatelessWidget {
               children: [
                 Container(
                   child: Image.asset(
-                    'images/tu-luyen-cach-tu-duy.jpg',
+                    'assets/images/tu-luyen-cach-tu-duy.jpg',
                     width: 100,
                     height: 150,
                   ),
@@ -862,7 +863,7 @@ class book2 extends StatelessWidget {
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Container(
-            child: Image.asset('images/tu-luyen-cach-tu-duy.jpg',
+            child: Image.asset('assets/images/tu-luyen-cach-tu-duy.jpg',
                 width: 100, height: 150, fit: BoxFit.cover),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(60), color: Colors.amber),

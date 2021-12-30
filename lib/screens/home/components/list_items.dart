@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hkl_books/models/book.dart';
+import 'package:hkl_books/screens/detail/detail.dart';
 
 import 'book_item.dart';
+
 class ListItems extends StatelessWidget {
   const ListItems({
     Key? key,
@@ -15,7 +17,7 @@ class ListItems extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: books
-              .map((item) => BookItem(book: item))
+              .map((item) => InkWell(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> Detail())),child: BookItem(book: item)))
               .toList(),
         ),
       ),

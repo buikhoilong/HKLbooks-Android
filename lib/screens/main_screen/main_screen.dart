@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hkl_books/screens/my_order/my_order.dart';
 import '../account/account.dart';
 import '../cart/cart.dart';
 import '../home/home.dart';
@@ -19,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
     List<Widget> listScreen = [];
     listScreen.add(const Home());
     listScreen.add(const Cart());
-    listScreen.add(const Account());
+    listScreen.add(const MyOrder());
     return Scaffold(
         backgroundColor: Colors.white,
         body: listScreen[pageIndex],

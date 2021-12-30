@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hkl_books/screens/review_order/review_order.dart';
 
 Row _product(
     String _img, double _w, double _h, String _name, String _totalPrice) {
@@ -55,13 +56,13 @@ class Delivered extends StatelessWidget {
             ),
             const Divider(),
             const SizedBox(height: 20),
-            _product('images/nhung-quy-tac-tu-duy.jpg', 150, 150,
+            _product('assets/images/nhung-quy-tac-tu-duy.jpg', 150, 150,
                 'Những quy tắc tư duy', '69.000đ'),
             const SizedBox(height: 30),
-            _product('images/tu-luyen-cach-tu-duy.jpg', 150, 150,
+            _product('assets/images/tu-luyen-cach-tu-duy.jpg', 150, 150,
                 'Tự luyện cách tư duy', '69.000đ'),
             const SizedBox(height: 30),
-            _product('images/lam-it-duoc-nhieu.jpg', 150, 150,
+            _product('assets/images/lam-it-duoc-nhieu.jpg', 150, 150,
                 'Làm ít được nhiều', '69.000đ'),
             const SizedBox(height: 20),
             Row(
@@ -72,7 +73,7 @@ class Delivered extends StatelessWidget {
                     primary: Colors.lightGreen,
                     side: const BorderSide(color: Colors.lightGreen),
                   ),
-                  onPressed: () {},
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ReviewOrder())),
                   child: const Text('Đánh Giá'),
                 ),
                 OutlinedButton(
