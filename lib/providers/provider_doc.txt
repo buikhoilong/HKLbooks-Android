@@ -1,0 +1,8 @@
+Mỗi 1 Controller ở Laravel sẽ tương ứng 1 file Provider
+
+
+
+Dùng để get Data JSON thông qua API,
+Gọi models để map JSON -> Object => Lưu data dưới dạng Object
+
+Dùng để transfer data đến các widget cần dùng data từ Provider

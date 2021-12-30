@@ -1,27 +1,13 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const Notification());
-
-class Notification extends StatelessWidget {
-  const Notification({Key? key}) : super(key: key);
+class Notify extends StatefulWidget {
+  const Notify({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
-    );
-  }
+  _NotifyState createState() => _NotifyState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  _MyCustomState createState() => _MyCustomState();
-}
-
-class _MyCustomState extends State<MyHomePage> {
+class _NotifyState extends State<Notify> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -30,13 +16,13 @@ class _MyCustomState extends State<MyHomePage> {
             style: TextStyle(color: Colors.white),
           ),
           centerTitle: true,
-          backgroundColor: Colors.lightGreen,
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-          ),
+
+          // leading: IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+          // ),
         ),
+        backgroundColor: Colors.white,
         body: ListView.separated(
           padding: const EdgeInsets.all(10),
           itemCount: 20,
@@ -47,7 +33,8 @@ class _MyCustomState extends State<MyHomePage> {
                 width: 100,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('images/logo.png'), fit: BoxFit.cover),
+                      image: AssetImage('assets/images/logo.png'),
+                      fit: BoxFit.cover),
                 ),
               ),
               title: const Text(
