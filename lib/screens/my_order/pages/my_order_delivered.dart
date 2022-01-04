@@ -73,7 +73,7 @@ class Delivered extends StatelessWidget {
                     primary: Colors.lightGreen,
                     side: const BorderSide(color: Colors.lightGreen),
                   ),
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ReviewOrder())),
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ReviewOrder())),
                   child: const Text('Đánh Giá'),
                 ),
                 OutlinedButton(

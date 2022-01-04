@@ -73,7 +73,9 @@ class _MyCustomState extends State<MyHomePage> {
               child: Row(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     icon: const Icon(
                       Icons.arrow_back_ios,
                       color: Colors.white,
@@ -95,13 +97,13 @@ class _MyCustomState extends State<MyHomePage> {
             ),
             const SizedBox(height: 20),
 
-            _product('images/nhung-quy-tac-tu-duy.jpg', 150, 150,
+            _product('assets/images/nhung-quy-tac-tu-duy.jpg', 150, 150,
                 'Những quy tắc tư duy', '69.000đ', '1'),
             const SizedBox(height: 30),
-            _product('images/tu-luyen-cach-tu-duy.jpg', 150, 150,
+            _product('assets/images/tu-luyen-cach-tu-duy.jpg', 150, 150,
                 'Tự luyện cách tư duy', '69.000đ', '1'),
             const SizedBox(height: 30),
-            _product('images/lam-it-duoc-nhieu.jpg', 150, 150,
+            _product('assets/images/lam-it-duoc-nhieu.jpg', 150, 150,
                 'Làm ít được nhiều', '69.000đ', '1'),
             const SizedBox(height: 20),
 

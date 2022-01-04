@@ -35,8 +35,9 @@ class _MainScreenState extends State<MainScreen> {
                 color: myGreen.withOpacity(0.38))
           ]),
           child: BottomNavigationBar(
+            showUnselectedLabels: true,
             selectedItemColor: myGreen,
-            unselectedItemColor: myGrey,
+            unselectedItemColor: Colors.black,
             onTap: (value) {
               setState(() {
                 pageIndex = value;

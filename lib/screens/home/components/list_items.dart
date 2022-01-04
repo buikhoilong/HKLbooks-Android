@@ -17,7 +17,7 @@ class ListItems extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: books
-              .map((item) => InkWell(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> Detail())),child: BookItem(book: item)))
+              .map((item) => InkWell(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> const Detail())),child: BookItem(book: item)))
               .toList(),
         ),
       ),
