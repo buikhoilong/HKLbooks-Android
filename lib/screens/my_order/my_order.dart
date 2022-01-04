@@ -7,7 +7,6 @@ import 'pages/my_order_being_transported.dart';
 import 'pages/my_order_delivered.dart';
 import 'pages/my_order_cancelled.dart';
 
-
 class MyOrder extends StatefulWidget {
   const MyOrder({Key? key}) : super(key: key);
 
@@ -25,7 +24,9 @@ class _MyOrderState extends State<MyOrder> {
             centerTitle: true,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
             backgroundColor: myGreen,
             elevation: 10,
