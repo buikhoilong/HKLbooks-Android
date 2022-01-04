@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hkl_books/screens/my_order/my_order.dart';
+import 'package:hkl_books/screens/notification/notification.dart';
 import '../account/account.dart';
 import '../cart/cart.dart';
 import '../home/home.dart';
@@ -20,7 +20,8 @@ class _MainScreenState extends State<MainScreen> {
     List<Widget> listScreen = [];
     listScreen.add(const Home());
     listScreen.add(const Cart());
-    listScreen.add(const MyOrder());
+    listScreen.add(const Account());
+    listScreen.add(const Notify());
     return Scaffold(
         backgroundColor: Colors.white,
         body: listScreen[pageIndex],
@@ -34,7 +35,9 @@ class _MainScreenState extends State<MainScreen> {
                 color: myGreen.withOpacity(0.38))
           ]),
           child: BottomNavigationBar(
+            showUnselectedLabels: true,
             selectedItemColor: myGreen,
+            unselectedItemColor: Colors.black,
             onTap: (value) {
               setState(() {
                 pageIndex = value;
@@ -61,6 +64,13 @@ class _MainScreenState extends State<MainScreen> {
                   label: "Tài khoản",
                   activeIcon: SvgPicture.asset(
                     "assets/icons/account-grey.svg",
+                    color: myGreen,
+                  )),
+              BottomNavigationBarItem(
+                  icon: SvgPicture.asset("assets/icons/notify.svg"),
+                  label: "Thông báo",
+                  activeIcon: SvgPicture.asset(
+                    "assets/icons/notify.svg",
                     color: myGreen,
                   ))
             ],

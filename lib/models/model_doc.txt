@@ -1,0 +1,4 @@
+Sau khi test API thành công, dùng tool JSON to Dart để generate code models
+
+Sau đó code map data từ JSON sang Object bằng 2 method: fromJSON và toJSON
+

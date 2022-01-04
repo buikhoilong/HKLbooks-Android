@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hkl_books/screens/being_transported_order/being_transported_order.dart';
 
 Row _product(
     String _img, double _w, double _h, String _name, String _totalPrice) {
@@ -74,7 +75,13 @@ class BeingTransported extends StatelessWidget {
                     primary: Colors.lightGreen,
                     side: const BorderSide(color: Colors.lightGreen),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BeingTransportedOrder()),
+                    );
+                  },
                   child: const Text('Xem Chi Tiết'),
                 ),
               ],

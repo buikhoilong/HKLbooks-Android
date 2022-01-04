@@ -233,7 +233,7 @@ class _CartState extends State<Cart> {
                     primary: Colors.lightGreen,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> Thanks())),
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> const Thanks())),
                   child: const Text(
                     'Thanh Toán',
                     style: TextStyle(
