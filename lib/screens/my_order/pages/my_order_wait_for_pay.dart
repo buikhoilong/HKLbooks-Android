@@ -1,3 +1,6 @@
+import 'package:flutter/widgets.dart';
+import 'package:hkl_books/provider/bookprovider.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 Row _product(
@@ -33,6 +36,7 @@ Row _product(
   );
 }
 
+/*
 class WaitForPay extends StatelessWidget {
   const WaitForPay({Key? key}) : super(key: key);
 
@@ -90,6 +94,89 @@ class WaitForPay extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+*/
+
+class WaitForPay extends StatefulWidget {
+  const WaitForPay({Key? key}) : super(key: key);
+
+  @override
+  _WaitForPayState createState() => _WaitForPayState();
+}
+
+class _WaitForPayState extends State<WaitForPay> {
+  @override
+  void initState() {
+    super.initState();
+    final booksMdl = Provider.of<BookProvider>(context, listen: false);
+    booksMdl.getProduct(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Consumer<BookProvider>(builder: (context, state, child) {
+        return ListView.builder(
+            itemCount: state.books.length,
+            itemBuilder: (context, index) {
+              return Container(
+                child: state.loading
+                    ? const CircularProgressIndicator()
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            //padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
+                            alignment: Alignment.topLeft,
+                            child: const Text('Đơn hàng chờ được thanh toán',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                          ),
+                          const Divider(),
+                          const SizedBox(height: 20),
+                          _product(
+                              'assets/images/${state.books[index].imgPath}',
+                              150,
+                              150,
+                              state.books[index].name,
+                              state.books[index].price.toString()),
+                          //const SizedBox(height: 30),
+                          const SizedBox(height: 40),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                  primary: Colors.lightGreen,
+                                  side: const BorderSide(
+                                      color: Colors.lightGreen),
+                                ),
+                                onPressed: () {},
+                                child: const Text('Xem Giỏ Hàng'),
+                              ),
+                              OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                  primary: Colors.lightGreen,
+                                  side: const BorderSide(
+                                      color: Colors.lightGreen),
+                                ),
+                                onPressed: () {},
+                                child: const Text('Thanh Toán'),
+                              ),
+                            ],
+                          ),
+                          const Divider(),
+                          const SizedBox(height: 50),
+                        ],
+                      ),
+              );
+            });
+      }),
     );
   }
 }
