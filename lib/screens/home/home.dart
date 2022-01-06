@@ -16,6 +16,7 @@ class _MycustomState extends State<Home> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: myGreen,
           toolbarHeight: 90,
           leading: const Icon(Icons.list, size: 45),
           title: TextField(
