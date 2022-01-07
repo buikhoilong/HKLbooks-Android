@@ -40,21 +40,21 @@ class _EditButtonState extends State<EditButton> {
             Container(
               alignment: Alignment.center,
               child: Column(
-                children: const [
+                children: [
                   TextField(
-                      //controller: editedValue,
-                      ),
-                  SizedBox(
+                    controller: editedValue,
+                  ),
+                  const SizedBox(
                     height: 5,
                   ),
-                  Text("Loading...",
+                  const Text("Loading...",
                       style: TextStyle(
                         color: Colors.red,
                         fontSize: 17,
                         fontWeight: FontWeight.w500,
                         letterSpacing: 1,
                       )),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                 ],

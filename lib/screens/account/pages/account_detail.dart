@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hkl_books/config.dart';
 import 'components/edit_button.dart';
-
-
+import 'components/my_app_bar.dart';
 
 class AccountDetail extends StatefulWidget {
   const AccountDetail({Key? key}) : super(key: key);
@@ -16,15 +15,7 @@ class _AccountDetailState extends State<AccountDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text('Trang cá nhân'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      appBar: MyAppBar(context, 'Trang cá nhân'),
       body: ListView(children: [
         Container(
           decoration: const BoxDecoration(
@@ -74,5 +65,3 @@ class _AccountDetailState extends State<AccountDetail> {
     );
   }
 }
-
-
