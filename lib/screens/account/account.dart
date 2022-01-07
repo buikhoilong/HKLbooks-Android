@@ -5,6 +5,7 @@ import 'components/function_button.dart';
 import 'components/infomation.dart';
 import 'pages/account_detail.dart';
 import 'pages/account_sercurity.dart';
+import 'pages/setting.dart';
 import 'pages/transaction_history.dart';
 
 class Account extends StatefulWidget {
@@ -45,7 +46,7 @@ class _AccountState extends State<Account> {
                   FunctionButton(
                       name: 'Cài đặt',
                       icon: 'setting.svg',
-                      navigateTo: Scaffold())
+                      navigateTo: Setting())
                 ],
               ),
             ),

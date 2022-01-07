@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hkl_books/config.dart';
 import 'components/edit_button.dart';
+import 'components/my_app_bar.dart';
 
 class AccountSercurity extends StatefulWidget {
   const AccountSercurity({Key? key}) : super(key: key);
@@ -14,15 +15,7 @@ class _AccountSercurityState extends State<AccountSercurity> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Bảo mật tài khoản'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      appBar: MyAppBar(context, 'Bảo mật tài khoản'),
       backgroundColor: Colors.white,
       body: ListView(
         children: [
