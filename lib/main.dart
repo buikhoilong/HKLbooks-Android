@@ -17,9 +17,15 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider<BookProvider>(create: (_) => BookProvider()),
         ],
-        child: const MaterialApp(
+        child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: Loading(),
+          title: 'HKLBooks',
+          theme: ThemeData(
+            primaryColor: myGreen,
+            colorScheme: const ColorScheme.light().copyWith(primary: myGreen),
+            scaffoldBackgroundColor: primaryColor,
+          ),
+          home: const Loading(),
         ));
   }
   /*
