@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hkl_books/models/book.dart';
-import 'package:hkl_books/models/book2.dart';
 import 'package:hkl_books/provider/bookprovider.dart';
-import 'package:hkl_books/repository/api.dart';
 import 'package:hkl_books/screens/detail/detail.dart';
 import 'package:provider/provider.dart';
 

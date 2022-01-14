@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hkl_books/screens/home/components/all_books.dart';
 
 class SessionTitle extends StatelessWidget {
   const SessionTitle({
@@ -18,7 +19,8 @@ class SessionTitle extends StatelessWidget {
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AllBooks())),
             child: const Text("XEM TẤT CẢ"),
           )
         ],
