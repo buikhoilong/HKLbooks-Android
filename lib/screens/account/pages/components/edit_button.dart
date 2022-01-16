@@ -7,20 +7,20 @@ class EditButton extends StatefulWidget {
     Key? key,
     required this.icon,
     required this.name,
+    required this.title,
   }) : super(key: key);
-  final String icon, name;
+  final String icon, name, title;
 
   @override
   State<EditButton> createState() => _EditButtonState();
 }
 
 class _EditButtonState extends State<EditButton> {
-  TextEditingController editedValue = new TextEditingController();
+  TextEditingController editedValue = TextEditingController();
   @override
   void initState() {
-    // TODO: implement initState
+    editedValue = TextEditingController();
     super.initState();
-    editedValue = new TextEditingController();
   }
 
   void showDialogEdit(context, String message) {
@@ -47,16 +47,18 @@ class _EditButtonState extends State<EditButton> {
                   const SizedBox(
                     height: 5,
                   ),
-                  const Text("Loading...",
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 1,
-                      )),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {}, child: const Text('Cập nhật')),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Hủy')),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -77,7 +79,7 @@ class _EditButtonState extends State<EditButton> {
         child: ListTile(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           onTap: () {
-            showDialogEdit(context, 'Đổi');
+            showDialogEdit(context, 'Cập nhật ${widget.title}');
           },
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

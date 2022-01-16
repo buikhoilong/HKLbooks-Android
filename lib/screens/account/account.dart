@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hkl_books/screens/login/login.dart';
 import 'package:hkl_books/screens/my_order/my_order.dart';
 
 import 'components/function_button.dart';
@@ -46,7 +47,9 @@ class _AccountState extends State<Account> {
                   FunctionButton(
                       name: 'Cài đặt',
                       icon: 'setting.svg',
-                      navigateTo: Setting())
+                      navigateTo: Setting()),
+                  // FunctionButton(
+                  //     name: 'Đăng nhập', icon: 'user.svg', navigateTo: Login()),
                 ],
               ),
             ),
