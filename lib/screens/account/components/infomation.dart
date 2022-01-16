@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hkl_books/DB/dbconfig.dart';
 import 'package:hkl_books/config.dart';
+import 'package:hkl_books/models/account.dart';
 
 class Infomation extends StatelessWidget {
   const Infomation({
@@ -15,29 +17,38 @@ class Infomation extends StatelessWidget {
         color: myGreen,
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                width: 100,
-                height: 100,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(75)),
-                    image: DecorationImage(
-                        image:
-                            AssetImage('assets/images/avatar.jpg')))),
-            const SizedBox(height: 15),
-            const Text('Đỗ Quang Huy',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20)),
-            const SizedBox(height: 5),
-            const Text('ID: USER20211227001',
-                style: TextStyle(
-                  color: Colors.white,
-                ))
-          ]),
+      child: FutureBuilder(
+        future: DBConfig.instance.getAccount(),
+        builder: (context, AsyncSnapshot<AccountModel> snapshot) {
+          if (snapshot.hasData) {
+            return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(75)),
+                          image: DecorationImage(
+                              image: AssetImage(
+                                  'assets/images/${snapshot.data!.avatar.toString()}')))),
+                  const SizedBox(height: 15),
+                  Text(snapshot.data!.name.toString(),
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20)),
+                  const SizedBox(height: 5),
+                  Text(snapshot.data!.id.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ))
+                ]);
+          }
+          return Container();
+        },
+      ),
     );
   }
 }
