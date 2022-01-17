@@ -2,17 +2,38 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hkl_books/models/book2.dart';
+import 'package:hkl_books/provider/bookprovider.dart';
 import 'package:hkl_books/screens/cart/cart.dart';
+import 'package:provider/provider.dart';
 
 class Detail extends StatefulWidget {
-  const Detail({Key? key}) : super(key: key);
+  final Book2 bookModel;
+  const Detail({Key? key, required this.bookModel}) : super(key: key);
   @override
   _DetailState createState() => _DetailState();
 }
 
 class _DetailState extends State<Detail> {
-  int counter = 0;
+  @override
+  void initState() {
+    super.initState();
+    final booksMdl = Provider.of<BookProvider>(context, listen: false);
+    booksMdl.getProduct(context);
+  }
+
+  bool isFavorited = false;
   // This widget is the root of your application.
+
+  void toggeFavorite() {
+    setState(() {
+      if (isFavorited) {
+        isFavorited = false;
+      } else {
+        isFavorited = true;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,45 +78,23 @@ class _DetailState extends State<Detail> {
                               // ignore: avoid_unnecessary_containers
                               Container(
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       // ignore: avoid_unnecessary_containers
                                       Container(
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              "Số lượng",
-                                              style: TextStyle(fontSize: 15),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                IconButton(
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        counter--;
-                                                      });
-                                                    },
-                                                    icon: Icon(Icons
-                                                        .exposure_minus_1)),
-                                                Text(
-                                                  '$counter',
-                                                  style: const TextStyle(
-                                                      fontSize: 15,
-                                                      color: Colors.black),
-                                                ),
-                                                IconButton(
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        counter++;
-                                                      });
-                                                    },
-                                                    icon: Icon(Icons
-                                                        .plus_one_outlined)),
-                                              ],
-                                            )
-                                          ],
+                                        child: Container(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              150, 0, 30, 10),
+                                          child: IconButton(
+                                            padding: const EdgeInsets.all(0),
+                                            alignment: Alignment.centerRight,
+                                            icon: (isFavorited
+                                                ? const Icon(Icons.favorite)
+                                                : const Icon(
+                                                    Icons.favorite_border)),
+                                            color: Colors.red[500],
+                                            onPressed: toggeFavorite,
+                                          ),
                                         ),
                                         padding: const EdgeInsets.fromLTRB(
                                             0, 10, 10, 0),
@@ -136,7 +135,7 @@ class _DetailState extends State<Detail> {
                               Container(
                                 child: Flexible(
                                   child: Text(
-                                    "Sự biến đổi nào, kể cả đới với cá nhân hoặc tổ chức đều bắt nguồn từ các câu hỏi mới.\nMarilee Adams mang đến cho chúng ta những công cụ đơn giản nhưng vô cùng mạnh mẽ để tìm ra các câu hỏi cho những câu hỏi sẽ thay đổi cuộc đời của chúng ta.” – Myron Rogers “Thay Đổi Câu Hỏi – Thay Đổi Cuộc Đời là một cuốn sách tuyệt vời.\nVới văn phong rõ ràng, dễ hiểu, Marilee đưa ra cách thức mà chúng ta có thể làm theo để chủ đích thay đổi cách nghĩ của mình.\nBà đã giới thiệu một công cụ vô cùng hữu dụng cho các huấn luyện viên, các nhà tư vấn, các chuyên gia và tất cả những người khao khát muốn thay đổi cuộc đời minh.” Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành.\nTuy nhiên tuỳ vào từng loại sản phẩm hoặc phương thức, địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, …",
+                                    widget.bookModel.detail,
                                     style: TextStyle(
                                       fontSize: 15,
                                     ),
@@ -158,7 +157,7 @@ class _DetailState extends State<Detail> {
                           child: Row(
                             children: [
                               Image.asset(
-                                'assets/images/thay-cau-hoi-doi-cuoc-doi.jpg',
+                                'assets/images/${widget.bookModel.imgPath}',
                                 width: 130,
                                 height: 250,
                                 fit: BoxFit.contain,
@@ -168,20 +167,24 @@ class _DetailState extends State<Detail> {
                                 child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    children: const [
+                                    children: [
                                       Text(
-                                        "Thay Câu Hỏi Đổi Cuộc Đời",
+                                        widget.bookModel.name,
                                         style: TextStyle(
-                                            fontSize: 20, color: Colors.white),
+                                            fontFamily: 'BalihoScript',
+                                            fontSize: 25,
+                                            color: Colors.white),
                                         textAlign: TextAlign.center,
                                       ),
                                       SizedBox(
                                         height: 20,
                                       ),
                                       Text(
-                                        "- Paul Angone -",
+                                        "- ${widget.bookModel.author} -",
                                         style: TextStyle(
-                                            fontSize: 20, color: Colors.white),
+                                            fontFamily: 'BalihoScript',
+                                            fontSize: 25,
+                                            color: Colors.white),
                                         textAlign: TextAlign.center,
                                       )
                                     ]),
@@ -209,18 +212,24 @@ class _DetailState extends State<Detail> {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [Text('Thể loại'), Text('Kỹ năng')],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text('Tác giả'),
-                            Text('Paul Angone')
+                          children: [
+                            Text('Thể loại'),
+                            Text(widget.bookModel.categoryId)
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [Text('Giá bán lẻ'), Text('69.000đ')],
+                          children: [
+                            Text('Tác giả'),
+                            Text(widget.bookModel.author)
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Giá bán lẻ'),
+                            Text(widget.bookModel.price.toString())
+                          ],
                         ),
                       ],
                     ),

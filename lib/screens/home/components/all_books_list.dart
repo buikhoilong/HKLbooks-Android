@@ -34,8 +34,11 @@ class _AllBooksListState extends State<AllBooksList> {
           itemBuilder: (context, index) => Container(
             margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: InkWell(
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Detail())),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          Detail(bookModel: data.books[index]))),
               child:
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Container(
