@@ -3,6 +3,7 @@ import 'package:hkl_books/DB/dbconfig.dart';
 import 'package:hkl_books/models/account.dart';
 import 'package:hkl_books/provider/accountprovider.dart';
 import 'package:hkl_books/screens/main_screen/main_screen.dart';
+import 'package:hkl_books/screens/register/register.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
@@ -80,7 +81,7 @@ class _LoginState extends State<Login> {
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.account_circle,
                               color: Colors.green, size: 25),
-                          labelText: 'Tên đăng nhập/Email',
+                          labelText: 'Email',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(100),
                           ),
@@ -123,33 +124,34 @@ class _LoginState extends State<Login> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50))),
                           onPressed: () async {
-                            await Provider.of<AccountProvider>(context,
-                                    listen: false)
-                                .getAccount(email.text, password.text);
-                            if (data.account.status == 400) {
-                              setState(() {
-                                email.clear();
-                                password.clear();
-                              });
-                              ShowDialog(context,
-                                  '${data.account.email.toString()}\n${data.account.password}');
-                            } else if (data.account.status == 401) {
-                              ShowDialog(
-                                  context, 'Email chưa đăng ký tài khoản!');
-                            } else if (data.account.status == 402) {
-                              ShowDialog(context, 'Mật khẩu không đúng!');
+                            if (email.text.isEmpty) {
+                              ShowDialog(context, 'Chưa nhập Email!');
+                            } else if (password.text.isEmpty) {
+                              ShowDialog(context, 'Chưa nhập Password!');
                             } else {
-                              ShowDialog(context, 'Đăng Nhập thành công!');
-                              // đăng nhập thành công
-                              DBConfig.instance.insertAccount(data.account);
-                              Future.delayed(
-                                  const Duration(seconds: 1),
-                                  () => Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const MainScreen()),
-                                      (route) => false));
+                              await Provider.of<AccountProvider>(context,
+                                      listen: false)
+                                  .login(email.text, password.text);
+                              if (data.account.status == 400) {
+                                ShowDialog(context,
+                                    '${data.account.email.toString()}\n${data.account.password}');
+                              } else if (data.account.status == 401) {
+                                ShowDialog(
+                                    context, 'Email chưa đăng ký tài khoản!');
+                              } else if (data.account.status == 402) {
+                                ShowDialog(context, 'Mật khẩu không đúng!');
+                              } else {
+                                ShowDialog(context, 'Đăng Nhập thành công!');
+                                DBConfig.instance.insertAccount(data.account);
+                                Future.delayed(
+                                    const Duration(seconds: 1),
+                                    () => Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const MainScreen()),
+                                        (route) => false));
+                              }
                             }
                           },
                         );
@@ -161,7 +163,13 @@ class _LoginState extends State<Login> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const Register()));
+                              },
                               child: const Text(
                                 "Đăng ký ngay!",
                                 style: TextStyle(
@@ -227,8 +235,9 @@ class _LoginState extends State<Login> {
                                 child: Center(
                                   child: IconButton(
                                     icon: const Icon(
-                                      Icons.backpack,
+                                      Icons.g_mobiledata_outlined,
                                       color: Colors.deepOrangeAccent,
+                                      size: 35,
                                     ),
                                     onPressed: () {},
                                   ),
