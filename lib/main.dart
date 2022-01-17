@@ -3,6 +3,7 @@ import 'package:hkl_books/provider/bookprovider.dart';
 import 'package:hkl_books/screens/loading/loading.dart';
 import 'package:provider/provider.dart';
 import 'config.dart';
+import 'provider/accountprovider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<BookProvider>(create: (_) => BookProvider()),
+          ChangeNotifierProvider<AccountProvider>(create: (_) => AccountProvider()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
