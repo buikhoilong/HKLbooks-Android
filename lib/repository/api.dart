@@ -50,24 +50,22 @@ Future<AccountModel> getAccountByEmail(email, password) async {
   return resultAccount;
 }
 
-Future<AccountModel> login(email, password) async {
+Future<AccountModel> loginApp(email, password) async {
   AccountModel resultAccount = AccountModel();
   try {
-    final response =
-        await http.post(Uri.parse(baseURL + 'account/login'), headers: {
-      HttpHeaders.contentTypeHeader: "application/json",
-    }, body: {
-      'Email': email,
-      'Password': password
-    });
+    final response = await http.post(Uri.parse(baseURL + 'account/login'),
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+        },
+        // headers: <String, String>{
+        //   'Content-Type': 'application/json; charset=UTF-8',
+        // },
+        body:
+            jsonEncode(<String, String>{'Email': email, 'Password': password}));
+
     if (response.statusCode == 200) {
       final item = json.decode(response.body);
       resultAccount = AccountModel.fromJson(item);
-    } else if (response.statusCode == 400) {
-      final item = json.decode(response.body);
-
-      resultAccount = AccountModel.fromJson(item);
-      resultAccount.status = response.statusCode;
     } else {
       resultAccount.status = response.statusCode;
     }
