@@ -29,7 +29,7 @@ class _LoadingState extends State<Loading> {
         "HKLBooks",
         style: TextStyle(
           decoration: TextDecoration.none,
-          fontFamily: "Dancing Script",
+          fontFamily: "BalihoScript",
           fontSize: 40,
           height: 1.5,
           fontWeight: FontWeight.w700,
@@ -43,11 +43,9 @@ class _LoadingState extends State<Loading> {
         "Loading...",
         style: TextStyle(
           decoration: TextDecoration.none,
-          fontFamily: "Dancing Script",
+          fontFamily: "BalihoScript",
           fontSize: 30,
           height: 1.5,
-          fontWeight: FontWeight.w700,
-          fontStyle: FontStyle.italic,
           color: Colors.white,
           wordSpacing: 6,
         ),

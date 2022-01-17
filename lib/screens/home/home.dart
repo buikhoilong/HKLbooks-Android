@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hkl_books/config.dart';
+import 'package:hkl_books/screens/home/components/banner.dart';
 import 'components/list_items.dart';
 import 'components/session_title.dart';
 
@@ -38,9 +39,7 @@ class _MycustomState extends State<Home> {
           ),
         ),
         body: ListView(children: [
-          Image.asset(
-            'assets/images/Untitled.png',
-          ), //Banner
+          const MyBanner(),
           Column(
             children: const [
               SessionTitle(title: "Sách mới nhất"),

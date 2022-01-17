@@ -16,7 +16,7 @@ class _ThanksState extends State<Thanks> {
     return EasySplashScreen(
       gradientBackground:
           // ignore: prefer_const_literals_to_create_immutables
-          const LinearGradient( colors: [
+          const LinearGradient(colors: [
         myGreen,
         Color(0xFF88ECAC),
       ]),
@@ -26,30 +26,26 @@ class _ThanksState extends State<Thanks> {
       title: const Text(
         "Mua hàng thành công! \n Cảm ơn bạn đã mua hàng.",
         style: TextStyle(
-                          decoration: TextDecoration.none,
-                          fontFamily: "Dancing Script",
-                          fontSize: 30,
-                          height: 1.5,
-                          fontWeight: FontWeight.w700,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.white,
-                          wordSpacing: 6,
-                        ),
-          textAlign: TextAlign.center,
+          decoration: TextDecoration.none,
+          fontFamily: "BalihoScript",
+          fontSize: 30,
+          height: 1.5,
+          color: Colors.white,
+          wordSpacing: 6,
+        ),
+        textAlign: TextAlign.center,
       ),
       showLoader: true,
       loadingText: const Text(
         "Đang trở về kho sách!!!",
-                style: TextStyle(
-                          decoration: TextDecoration.none,
-                          fontFamily: "Dancing Script",
-                          fontSize: 30,
-                          height: 1.5,
-                          fontWeight: FontWeight.w700,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.white,
-                          wordSpacing: 6,
-                        ),
+        style: TextStyle(
+          decoration: TextDecoration.none,
+          fontFamily: "BalihoScript",
+          fontSize: 30,
+          height: 1.5,
+          color: Colors.white,
+          wordSpacing: 6,
+        ),
       ),
       navigator: const MainScreen(),
       durationInSeconds: 5,

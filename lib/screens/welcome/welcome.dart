@@ -11,7 +11,6 @@ class Welcome extends StatelessWidget {
       body: Center(
         child: Stack(
           children: <Widget>[
-            
             Container(
               child: Image.asset(
                 'assets/images/64953cce6364ab3af275.jpg',
@@ -31,11 +30,9 @@ class Welcome extends StatelessWidget {
                       'Chào mừng bạn đến với ứng dụng',
                       style: TextStyle(
                         decoration: TextDecoration.none,
-                        fontFamily: "Dancing Script",
+                        fontFamily: "BalihoScript",
                         fontSize: 50,
                         height: 1.5,
-                        fontWeight: FontWeight.w700,
-                        fontStyle: FontStyle.italic,
                         color: Colors.white,
                         wordSpacing: 6,
                       ),
