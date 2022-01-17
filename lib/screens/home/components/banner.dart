@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
+// ignore: non_constant_identifier_names
 final List<String> Banner = [
   'assets/images/Banner.png',
   'assets/images/Banner3.png',
