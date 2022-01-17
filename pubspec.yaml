@@ -32,7 +32,7 @@ dependencies:
   http: ^0.13.4
   flutter:
     sdk: flutter
-  flutter_rating_bar: ^3.2.0
+  flutter_rating_bar: ^4.0.0
   easy_splash_screen:
   sqflite: ^2.0.1
   path_provider: ^2.0.2
@@ -88,9 +88,9 @@ flutter:
           weight: 700
         - asset: assets/fonts/Dancing_Script/DancingScript-Medium.ttf
           weight: 500
+    - family: BalihoScript
+      fonts:
         - asset: assets/fonts/BalihoScript/BalihoScript.ttf
-          weight: 500
-          style: italic
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

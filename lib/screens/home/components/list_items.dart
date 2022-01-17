@@ -35,7 +35,7 @@ class _ListItemsState extends State<ListItems> {
                     onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Detail())),
+                            builder: (context) => Detail(bookModel: item))),
                     child: BookItem(book2: item)))
                 .toList(),
           );
