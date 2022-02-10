@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:hkl_books/config.dart';
 import 'package:hkl_books/screens/home/components/all_books_list.dart';
 
+import '../test.dart';
+
 class AllBooks extends StatefulWidget {
   const AllBooks({Key? key}) : super(key: key);
   @override
@@ -14,10 +16,10 @@ class _AllBooksState extends State<AllBooks> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: const Test(),
       appBar: AppBar(
         backgroundColor: myGreen,
         toolbarHeight: 90,
-        leading: const Icon(Icons.list, size: 45),
         title: TextField(
           decoration: InputDecoration(
             prefixIcon: const Icon(

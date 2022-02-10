@@ -22,7 +22,7 @@ class _LoadingState extends State<Loading> {
         myGreen,
         Color(0xFF88ECAC),
       ]),
-      //backgroundColor: primaryColor,
+      // backgroundColor: primaryColor,
       logo: Image.asset('assets/images/logo.png'),
       logoSize: 200,
       title: const Text(
@@ -32,8 +32,6 @@ class _LoadingState extends State<Loading> {
           fontFamily: "BalihoScript",
           fontSize: 40,
           height: 1.5,
-          fontWeight: FontWeight.w700,
-          fontStyle: FontStyle.italic,
           color: Colors.white,
           wordSpacing: 6,
         ),

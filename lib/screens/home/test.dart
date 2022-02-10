@@ -1,118 +1,261 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+// import 'package:flutter/material.dart';
+// import 'package:hkl_books/DB/dbconfig.dart';
+// import 'package:hkl_books/models/account.dart';
+// import 'package:hkl_books/provider/categoryprovider.dart';
+// import 'package:hkl_books/screens/account/account.dart';
+// import 'package:hkl_books/screens/favorite/favorite.dart';
+// import 'package:hkl_books/screens/home/components/all_books_list_by_category.dart';
+// import 'package:hkl_books/screens/login/login.dart';
+// import 'package:hkl_books/screens/notification/notification.dart';
+// import 'package:provider/provider.dart';
 
-class TestReviewOrder extends StatefulWidget {
-  const TestReviewOrder({Key? key}) : super(key: key);
+// import '../../../config.dart';
+
+// class Test extends StatefulWidget {
+//   const Test({Key? key}) : super(key: key);
+
+//   @override
+//   State<Test> createState() => _TestState();
+// }
+
+// class _TestState extends State<Test> {
+//   @override
+//   void initState() {
+//     super.initState();
+//     final booksMdl = Provider.of<CategoryProvider>(context, listen: false);
+//     booksMdl.getCategory(context);
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Drawer(
+//         child: Consumer<CategoryProvider>(builder: (context, data, child) {
+//       return ListView.builder(
+//           itemCount: data.categories.length,
+//           itemBuilder: (context, index) {
+//             return FutureBuilder(
+//               future: DBConfig.instance.getAccount(),
+//               builder: (context, AsyncSnapshot<AccountModel> snapshot) {
+//                 if (snapshot.hasData) {
+//                   return ListView(
+//                     padding: EdgeInsets.zero,
+//                     children: [
+//                       UserAccountsDrawerHeader(
+//                         accountName: Text(snapshot.data!.name.toString()),
+//                         accountEmail: Text(snapshot.data!.email.toString()),
+//                         currentAccountPicture: CircleAvatar(
+//                           child: ClipOval(
+//                             child: Image.asset(
+//                               'assets/images/${snapshot.data!.avatar.toString()}',
+//                               width: 90,
+//                               height: 90,
+//                               fit: BoxFit.cover,
+//                             ),
+//                           ),
+//                         ),
+//                         decoration: const BoxDecoration(
+//                             image: DecorationImage(
+//                           image: AssetImage('assets/images/LogoHKLBooks.jpg'),
+//                           fit: BoxFit.cover,
+//                         )),
+//                       ),
+//                       ListTile(
+//                         leading: const Icon(Icons.favorite),
+//                         title: const Text('Yêu thích'),
+//                         onTap: () => Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                                 builder: (context) => const Favorite())),
+//                       ),
+//                       ListTile(
+//                         leading: const Icon(Icons.notifications),
+//                         title: const Text('Thông báo'),
+//                         onTap: () => Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                                 builder: (context) => const Notify())),
+//                       ),
+//                       ListTile(
+//                         leading: const Icon(Icons.settings),
+//                         title: const Text('Cài đặt'),
+//                         onTap: () => Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                                 builder: (context) => const Account())),
+//                       ),
+//                       const Divider(),
+//                       const SizedBox(
+//                         height: 20,
+//                       ),
+//                       Container(
+//                         alignment: Alignment.center,
+//                         child: const Text(
+//                           'Thể loại',
+//                           style: TextStyle(
+//                             fontFamily: 'BalihoScript',
+//                             fontSize: 30,
+//                           ),
+//                         ),
+//                       ),
+//                       const SizedBox(height: 20),
+//                       TextButton(
+//                         onPressed: () => Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                                 builder: (context) =>
+//                                     const AllBooksListByCategory())),
+//                         child: Text(
+//                           data.categories[index].name.toString(),
+//                           style: const TextStyle(color: Colors.black),
+//                         ),
+//                       )
+//                     ],
+//                   );
+//                 } else {
+//                   return ListView(
+//                     padding: EdgeInsets.zero,
+//                     children: [
+//                       const UserAccountsDrawerHeader(
+//                         accountName: Text(''),
+//                         accountEmail: Text(''),
+//                         decoration: BoxDecoration(
+//                             image: DecorationImage(
+//                           image: AssetImage('assets/images/LogoHKLBooks.jpg'),
+//                           fit: BoxFit.cover,
+//                         )),
+//                       ),
+//                       ListTile(
+//                         leading:
+//                             const Icon(Icons.account_circle, color: myGreen),
+//                         title: const Text('Đăng nhập'),
+//                         onTap: () => Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                                 builder: (context) => const Login())),
+//                       ),
+//                       const Divider(),
+//                       const SizedBox(
+//                         height: 20,
+//                       ),
+//                       Container(
+//                         alignment: Alignment.center,
+//                         child: const Text(
+//                           'Thể loại',
+//                           style: TextStyle(
+//                             fontFamily: 'BalihoScript',
+//                             fontSize: 30,
+//                           ),
+//                         ),
+//                       ),
+//                       const SizedBox(height: 20),
+//                       TextButton(
+//                         onPressed: () => Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                                 builder: (context) =>
+//                                     const AllBooksListByCategory())),
+//                         child: Text(
+//                           data.categories[index].name.toString(),
+//                           style: const TextStyle(color: Colors.black),
+//                         ),
+//                       )
+//                     ],
+//                   );
+//                 }
+//               },
+//             );
+//           });
+//     }));
+//   }
+// }
+
+import 'package:flutter/material.dart';
+import 'package:hkl_books/DB/dbconfig.dart';
+import 'package:hkl_books/models/account.dart';
+import 'package:hkl_books/provider/categoryprovider.dart';
+import 'package:hkl_books/screens/account/account.dart';
+import 'package:hkl_books/screens/favorite/favorite.dart';
+import 'package:hkl_books/screens/home/components/all_books.dart';
+import 'package:hkl_books/screens/home/components/all_books_list_by_category.dart';
+import 'package:hkl_books/screens/home/components/categories_list.dart';
+import 'package:hkl_books/screens/login/login.dart';
+import 'package:hkl_books/screens/notification/notification.dart';
+import 'package:provider/provider.dart';
+
+import '../../../config.dart';
+
+class Test extends StatefulWidget {
+  const Test({Key? key}) : super(key: key);
 
   @override
-  _TestReviewOrderState createState() => _TestReviewOrderState();
+  State<Test> createState() => _TestState();
 }
 
-class _TestReviewOrderState extends State<TestReviewOrder> {
-  double rating = 0;
+class _TestState extends State<Test> {
+  @override
+  void initState() {
+    super.initState();
+    final booksMdl = Provider.of<CategoryProvider>(context, listen: false);
+    booksMdl.getCategory(context);
+  }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: const Text(
-            'Review Order',
-            style: TextStyle(color: Colors.white),
-          ),
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-          ),
-        ),
-        body: ListView(children: [
-          // ignore: avoid_unnecessary_containers
-          Container(
-            //height: double.maxFinite,
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  "Đánh Giá  - Nhận Xét Từ Khách Hàng: $rating",
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                // ignore: avoid_unnecessary_containers
-                Container(
-                  child: RatingBar.builder(
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    updateOnDrag: true,
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    onRatingUpdate: (rating) {
-                      setState(() {
-                        this.rating = rating;
-                      });
-                    },
+  Widget build(BuildContext context) {
+    return Drawer(
+        child: Column(
+      children: [
+        // const UserAccountsDrawerHeader(
+        //   accountName: Text(''),
+        //   accountEmail: Text(''),
+        //   decoration: BoxDecoration(
+        //       image: DecorationImage(
+        //     image: AssetImage('assets/images/LogoHKLBooks.jpg'),
+        //     fit: BoxFit.cover,
+        //   )),
+        // ),
+        // ListTile(
+        //   leading: const Icon(Icons.account_circle, color: myGreen),
+        //   title: const Text('Đăng nhập'),
+        //   onTap: () => Navigator.push(
+        //       context, MaterialPageRoute(builder: (context) => const Login())),
+        // ),
+        // const Divider(),
+        // const SizedBox(
+        //   height: 20,
+        // ),
+        // Container(
+        //   alignment: Alignment.center,
+        //   child: const Text(
+        //     'Thể loại',
+        //     style: TextStyle(
+        //       fontFamily: 'BalihoScript',
+        //       fontSize: 30,
+        //     ),
+        //   ),
+        // ),
+        // const SizedBox(height: 20),
+        CategoriesList(),
+        Consumer<CategoryProvider>(builder: (context, data, child) {
+          return Expanded(
+            child: ListView.builder(
+              itemCount: data.categories.length,
+              itemBuilder: (context, index) {
+                return TextButton(
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const AllBooksListByCategory())),
+                  child: Text(
+                    data.categories[index].name.toString(),
+                    style: const TextStyle(color: Colors.black),
                   ),
-                ),
-                const SizedBox(height: 20),
-                Column(
-                  children: [
-                    Container(
-                      child: Row(
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                          const SizedBox(
-                            width: 80,
-                            height: 80,
-                            child: CircleAvatar(
-                              backgroundImage:
-                                  AssetImage('assets/images/avatar.jpg'),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          const Text(
-                            "Đỗ Quang Huy",
-                            style: TextStyle(
-                              fontSize: 25,
-                            ),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                    ),
-                    Container(
-                      child: Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                          child: TextField(
-                            maxLines: 12,
-                            cursorColor: Colors.black,
-                            textAlign: TextAlign.start,
-                            decoration: InputDecoration(
-                              labelText: "Bình luận",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
-                    ),
-                  ],
-                ),
-              ],
+                );
+              },
             ),
-          )
-        ]),
-      );
+          );
+        }),
+      ],
+    ));
+  }
 }
