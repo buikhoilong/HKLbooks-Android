@@ -26,7 +26,6 @@ class _FavoriteState extends State<Favorite> {
         color: Colors.white,
         child: ListView(children: [
           const SizedBox(height: 20),
-
           //Sản phẩm
           FavoritedItem(
             favorited: carts[0],

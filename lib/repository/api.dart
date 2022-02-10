@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:hkl_books/models/account.dart';
 import 'package:hkl_books/models/book2.dart';
 import 'package:hkl_books/models/category.dart';
+import 'package:hkl_books/models/favourite.dart';
 import 'package:hkl_books/models/promote.dart';
 import 'package:http/http.dart' as http;
 
@@ -131,6 +132,48 @@ Future<List<Category>> getAllCategory(context) async {
   }
   return resultCategory;
 }
+
+Future<List<Favourite>> getAllFavouritesBooksByAccountId(context) async {
+  List<Favourite> resultFavorite = [];
+  try {
+    final response = await http.get(
+      Uri.parse(baseURL + 'favourite'),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      },
+    );
+    if (response.statusCode == 200) {
+      final item = json.decode(response.body);
+
+      resultFavorite = (item as List).map((p) => Favourite.fromJson(p)).toList();
+    }
+  } catch (e) {
+    rethrow;
+  }
+  return resultFavorite;
+}
+
+
+Future<List<Favourite>> getAllBooksByBookId(context, bookId) async {
+  List<Favourite> resultBooksByBookId = [];
+  try {
+    final response = await http.get(
+      Uri.parse(baseURL + 'favourite/getAllBooksByBookId/$bookId'),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      },
+    );
+    if (response.statusCode == 200) {
+      final item = json.decode(response.body);
+      resultBooksByBookId =
+          (item as List).map((p) => Favourite.fromJson(p)).toList();
+    }
+  } catch (e) {
+    rethrow;
+  }
+  return resultBooksByBookId;
+}
+
 
 Future<AccountModel> loginApp(email, password) async {
   AccountModel resultAccount = AccountModel();

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hkl_books/config.dart';
-import 'package:hkl_books/models/cart.dart';
+import 'package:hkl_books/models/book2.dart';
 
 // ignore: must_be_immutable
 class FavoritedItem extends StatefulWidget {
   FavoritedItem({Key? key, required this.favorited}) : super(key: key);
-  Cart favorited;
+  Book2 favorited;
 
   @override
   State<FavoritedItem> createState() => _FavoritedItemState();
@@ -23,7 +23,7 @@ class _FavoritedItemState extends State<FavoritedItem> {
         children: [
           Expanded(
             flex: 5,
-            child: Image.asset(widget.favorited.book.imgPath,
+            child: Image.asset(widget.favorited.imgPath,
                 width: 120, height: 150),
           ),
           Expanded(
@@ -32,7 +32,7 @@ class _FavoritedItemState extends State<FavoritedItem> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.favorited.book.name,
+                  widget.favorited.name,
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.black,
@@ -40,7 +40,7 @@ class _FavoritedItemState extends State<FavoritedItem> {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  'Đơn giá: ${formatMoney.format(widget.favorited.book.price)}',
+                  'Đơn giá: ${formatMoney.format(widget.favorited.price)}',
                   overflow: TextOverflow.visible,
                   style: const TextStyle(
                     fontSize: 15,
