@@ -1,8 +1,5 @@
-import 'dart:io' as io;
 import 'package:hkl_books/models/account.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 
 class DBConfig {
   static final DBConfig instance = DBConfig._init();
@@ -38,7 +35,7 @@ class DBConfig {
   Future<AccountModel> insertAccount(AccountModel account) async {
     var dbClient = await db;
     await dbClient!.insert('local_accounts', account.toJson());
-    print("Insert thành công");
+    // print("Insert thành công");
     return account;
   }
 
@@ -52,15 +49,15 @@ class DBConfig {
     var dbClient = await db;
     await dbClient!
         .delete('local_accounts', where: 'id = ?', whereArgs: [account!.id]);
-    print("Xóa thành công!");
+    // print("Xóa thành công!");
     return account;
   }
 
-  checkLogined() async {
-    var dbClient = await db;
-    final queryResult = await dbClient!.query('local_accounts');
-    print(queryResult.length != 0);
+  // checkLogined() async {
+  //   var dbClient = await db;
+  //   final queryResult = await dbClient!.query('local_accounts');
+  //   print(queryResult.length != 0);
 
-    return (queryResult.length != 0);
-  }
+  //   return (queryResult.length != 0);
+  // }
 }

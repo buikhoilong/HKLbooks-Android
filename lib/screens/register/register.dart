@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:hkl_books/config.dart';
+import 'package:hkl_books/provider/accountprovider.dart';
+import 'package:hkl_books/screens/account/components/my_show_dialog.dart';
+import 'package:provider/provider.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -11,15 +14,27 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  late bool acceptTermOfUse = false;
-  late bool showPassword = false;
-  late bool showConfirmPassword = false;
-  late Icon showIcon = Icon(Icons.remove_red_eye_outlined);
-  late Icon showConfirmIcon = Icon(Icons.remove_red_eye_outlined);
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController confirmPassword = TextEditingController();
+  late bool acceptTermOfUse = true;
+  late bool showPassword = false, showConfirmPassword = false;
+
+  late Icon showIcon = Icon(Icons.remove_red_eye_outlined),
+      showConfirmIcon = Icon(Icons.remove_red_eye_outlined);
+
+  late TextEditingController name = TextEditingController(),
+      email = TextEditingController(),
+      phone = TextEditingController(),
+      password = TextEditingController(),
+      confirmPassword = TextEditingController(),
+      address = TextEditingController();
+
+  late bool validateName = false,
+      validateEmail = false,
+      validatePassword = false,
+      validateConfirmPassword = false,
+      validatePhone = false,
+      validateAddress = false;
+  String validateEmailMessage = "", validatePhoneMessage = "";
+
   @override
   void initState() {
     acceptTermOfUse = false;
@@ -28,8 +43,12 @@ class _RegisterState extends State<Register> {
     showIcon = Icon(Icons.remove_red_eye_outlined);
     showConfirmIcon = Icon(Icons.remove_red_eye_outlined);
 
+    name = TextEditingController();
     email = TextEditingController();
+    phone = TextEditingController();
     password = TextEditingController();
+    confirmPassword = TextEditingController();
+    address = TextEditingController();
     super.initState();
   }
 
@@ -56,7 +75,11 @@ class _RegisterState extends State<Register> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
                       child: TextField(
+                        keyboardType: TextInputType.name,
+                        controller: name,
                         decoration: InputDecoration(
+                          errorText:
+                              validateName ? 'Vui lòng điền Họ và Tên' : null,
                           prefixIcon: const Icon(Icons.account_circle,
                               color: Colors.green, size: 25),
                           labelText: 'Họ và Tên',
@@ -69,7 +92,11 @@ class _RegisterState extends State<Register> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
                       child: TextField(
+                        controller: email,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
+                          errorText:
+                              validateEmail ? validateEmailMessage : null,
                           prefixIcon: const Icon(
                             Icons.email_outlined,
                             color: Colors.green,
@@ -84,28 +111,47 @@ class _RegisterState extends State<Register> {
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
-                      child: TextFormField(
-                        obscureText: !showPassword,
-                        validator: (String? value) {
-                          if (value!.trim().isEmpty) {
-                            return 'Password is required';
-                          }
-                        },
+                      child: TextField(
+                        controller: phone,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
+                          errorText:
+                              validatePhone ? validatePhoneMessage : null,
+                          prefixIcon: const Icon(Icons.phone_android,
+                              color: Colors.green, size: 25),
+                          labelText: 'Số điện thoại',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
+                      child: TextFormField(
+                        controller: password,
+                        keyboardType: TextInputType.visiblePassword,
+                        obscureText: !showPassword,
+                        decoration: InputDecoration(
+                          errorText: validatePassword
+                              ? 'Vui lòng điền Mật khẩu'
+                              : null,
                           prefixIcon: const Icon(
                             Icons.vpn_key_outlined,
                             color: Colors.green,
                             size: 25,
                           ),
                           labelText: 'Mật khẩu',
-                          suffixIcon: SizedBox(
-                            height: 20,
+                          suffixIcon: Container(
+                            width: 13   ,
+                            height: 13,
+                            margin: EdgeInsets.only(right: 15),
                             child: IconButton(
-                              splashColor: Color.fromARGB(0, 0, 0, 0),
-                              padding: EdgeInsets.only(right: 15),
-                              iconSize: 25,
+                              // splashColor: Color.fromARGB(0, 0, 0, 0),
+                              // padding: EdgeInsets.only(right: 15),
+                              // iconSize: 25,
                               icon: showIcon,
-                              color: Colors.black,
+                              color: myGreen,
                               onPressed: () {
                                 setState(() {
                                   showPassword = !showPassword;
@@ -128,8 +174,13 @@ class _RegisterState extends State<Register> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
                       child: TextField(
+                        controller: confirmPassword,
+                        keyboardType: TextInputType.visiblePassword,
                         obscureText: !showConfirmPassword,
                         decoration: InputDecoration(
+                          errorText: validateConfirmPassword
+                              ? 'Mậu khẩu không trùng khớp!'
+                              : null,
                           prefixIcon: const Icon(
                             Icons.vpn_key_outlined,
                             color: Colors.green,
@@ -164,6 +215,24 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
+                      child: TextField(
+                        keyboardType: TextInputType.streetAddress,
+                        controller: address,
+                        decoration: InputDecoration(
+                          errorText: validateAddress
+                              ? 'Vui lòng điền Địa chỉ (nhận hàng)'
+                              : null,
+                          prefixIcon: const Icon(Icons.home,
+                              color: Colors.green, size: 25),
+                          labelText: 'Địa chỉ',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                        ),
+                      ),
+                    ),
                     Container(
                       margin: const EdgeInsets.fromLTRB(15, 5, 45, 5),
                       child: Row(
@@ -186,22 +255,88 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                     Container(
-                      child: ElevatedButton(
-                        child: const Text(
-                          "Đăng Ký",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(355, 55),
-                            primary: Colors.green,
-                            side:
-                                const BorderSide(width: 2, color: Colors.green),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50))),
-                        onPressed: () {},
+                      child: Consumer<AccountProvider>(
+                        builder: (context, data, child) {
+                          return ElevatedButton(
+                            child: const Text(
+                              "Đăng Ký",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                                minimumSize: const Size(355, 55),
+                                primary: Colors.green,
+                                side: const BorderSide(
+                                    width: 2, color: Colors.green),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50))),
+                            onPressed: () async {
+                              if (name.text.isEmpty ||
+                                  email.text.isEmpty ||
+                                  phone.text.isEmpty ||
+                                  password.text.isEmpty ||
+                                  confirmPassword.text.isEmpty ||
+                                  address.text.isEmpty) {
+                                setState(() {
+                                  // print('Name: ' + name.text);
+                                  name.text.isEmpty
+                                      ? validateName = true
+                                      : validateName = false;
+                                  email.text.isEmpty
+                                      ? {
+                                          validateEmail = true,
+                                          validateEmailMessage =
+                                              'Vui lòng điền Email!'
+                                        }
+                                      : validateEmail = false;
+                                  phone.text.isEmpty
+                                      ? {
+                                          validatePhone = true,
+                                          validatePhoneMessage =
+                                              'Vui lòng điền Số điện thoại!'
+                                        }
+                                      : validateEmail = false;
+                                  password.text.isEmpty
+                                      ? validatePassword = true
+                                      : validatePassword = false;
+                                  confirmPassword.text != password.text
+                                      ? validateConfirmPassword = true
+                                      : validateConfirmPassword = false;
+                                  address.text.isEmpty
+                                      ? validateAddress = true
+                                      : validateAddress = false;
+                                });
+                              } else {
+                                await Provider.of<AccountProvider>(context,
+                                        listen: false)
+                                    .register(name.text, email.text, phone.text,
+                                        password.text, address.text);
+                                if (data.account.status == 401) {
+                                  setState(() {
+                                    validateEmail = true;
+                                    validateEmailMessage = 'Email đã tồn tại!';
+                                    validatePhone = false;
+                                  });
+                                } else if (data.account.status == 402) {
+                                  setState(() {
+                                    validateEmail = false;
+                                    validatePhone = true;
+                                    validatePhoneMessage =
+                                        'Số điện thoại đã tồn tại!';
+                                  });
+                                } else {
+                                  validateEmail = false;
+                                  validatePhone = false;
+                                  myShowDialog(context, 'Đăng Ký thành công!');
+                                  Future.delayed(const Duration(seconds: 1),
+                                      () => Navigator.pop(context));
+                                }
+                              }
+                            },
+                          );
+                        },
                       ),
                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                     ),

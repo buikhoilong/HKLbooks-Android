@@ -36,7 +36,7 @@ class _ListItemsState extends State<ListItems> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => Detail(bookModel: item))),
-                    child: BookItem(book2: item)))
+                    child: BookItem(book2: item)) )
                 .toList(),
           );
         }),

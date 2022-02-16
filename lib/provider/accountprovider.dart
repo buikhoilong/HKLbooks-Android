@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hkl_books/models/account.dart';
 import 'package:hkl_books/repository/api.dart';
-import 'package:hkl_books/screens/login/login.dart';
 
 class AccountProvider extends ChangeNotifier {
   AccountModel account = AccountModel();
@@ -22,9 +21,20 @@ class AccountProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  register(name, email, phone, password, address) async {
+    loading = true;
+    account = await registerApp(name, email, phone, password, address);
+    loading = false;
+  }
+
   getInfoAccount(AccountModel account) async {
     loading = true;
     account = await getAccountByEmail(account.email, account.password);
     loading = false;
+  }
+
+  updateName(name) async {
+    loading = true;
+    // account = await updateAccount(name, email, phone, password, address);
   }
 }

@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hkl_books/config.dart';
 
+import 'editing_dialog.dart';
+
 class EditButton extends StatefulWidget {
   const EditButton({
     Key? key,
     required this.icon,
     required this.name,
     required this.title,
+    required this.onTaps,
   }) : super(key: key);
   final String icon, name, title;
+  final Function onTaps;
 
   @override
   State<EditButton> createState() => _EditButtonState();
@@ -17,55 +21,34 @@ class EditButton extends StatefulWidget {
 
 class _EditButtonState extends State<EditButton> {
   TextEditingController editedValue = TextEditingController();
+  DateTime selectedDate = DateTime.now();
+
+  _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      initialEntryMode: DatePickerEntryMode.input,
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2050),
+      helpText: 'Cập nhật Sinh nhật',
+      cancelText: 'Hủy',
+      confirmText: 'Xác nhận',
+      errorFormatText: 'Ngày sai định dạng',
+      fieldLabelText: 'Nhập Sinh nhật',
+      fieldHintText: 'Tháng/Ngày/Năm',
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
   @override
   void initState() {
     editedValue = TextEditingController();
     super.initState();
-  }
-
-  void showDialogEdit(context, String message) {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(message,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.red,
-                fontSize: 18,
-                letterSpacing: 0.5,
-              )),
-          actions: [
-            Container(
-              alignment: Alignment.center,
-              child: Column(
-                children: [
-                  TextField(
-                    controller: editedValue,
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ElevatedButton(
-                          onPressed: () {}, child: const Text('Cập nhật')),
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Hủy')),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   @override
@@ -79,7 +62,14 @@ class _EditButtonState extends State<EditButton> {
         child: ListTile(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           onTap: () {
-            showDialogEdit(context, 'Cập nhật ${widget.title}');
+            // ShowEditDialog(
+            //     name: widget.title,
+            //     editedValue: editedValue,
+            //     hintText: widget.name);
+            widget.title == 'Sinh nhật'
+                ? _selectDate(context)
+                : showDialogEdit(
+                    context, widget.title, editedValue, widget.name);
           },
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
