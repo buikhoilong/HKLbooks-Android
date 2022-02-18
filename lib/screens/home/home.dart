@@ -5,7 +5,6 @@ import 'package:hkl_books/models/promote.dart';
 import 'package:hkl_books/provider/promoteprovider.dart';
 import 'package:hkl_books/screens/home/components/banner.dart';
 import 'package:hkl_books/screens/home/components/sidebar.dart';
-import 'package:hkl_books/screens/home/test.dart';
 import 'package:provider/provider.dart';
 import 'components/list_items_by_promote.dart';
 import 'components/session_title.dart';

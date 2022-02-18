@@ -40,8 +40,12 @@ class _CategoriesListState extends State<CategoriesList> {
                   onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              AllBooksListByCategory())),
+                          builder: (context) => AllBooksListByCategory(
+                                categoryId:
+                                    data.categories[index].id.toString(),
+                                categoryName:
+                                    data.categories[index].name.toString(),
+                              ))),
                   child: Text(
                     data.categories[index].name.toString(),
                     style: const TextStyle(color: Colors.black),
