@@ -5,6 +5,7 @@ class Favourite {
   String? createdAt;
   String? updatedAt;
   String? deletedAt;
+
   Favourite(
       {this.id,
       this.accountId,
@@ -23,7 +24,7 @@ class Favourite {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['Id'] = id;
     data['AccountId'] = accountId;
     data['BookId'] = bookId;

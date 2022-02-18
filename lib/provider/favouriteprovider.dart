@@ -1,20 +1,32 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hkl_books/models/book2.dart';
 import 'package:hkl_books/models/favourite.dart';
 import 'package:hkl_books/repository/api.dart';
 
 class FavouriteProvider extends ChangeNotifier{
-  List<Favourite> favorites = [];
+  // List<Favourite> favorites = [];
+  List<Book2> favoritebooks = [];
+  String Message = '';
+  bool isFavorite = false;
   bool loading = false;
 
-    getFavorite(context) async {
+    getAllBooks(accountid) async {
     loading = true;
-    favorites = await getAllFavouritesBooksByAccountId(context);
+    favoritebooks = await getAllFavBooksByAccountId(accountid);
     loading = false;
     notifyListeners();
   }
-    getAllBooksByBookId(context, bookId) async {
+
+  addFav(accountid, bookid) async {
     loading = true;
-    favorites = await getAllBooksByBookId(context, bookId);
+    Message = await addFav(accountid, bookid);
+    loading = false;
+    notifyListeners();
+  }
+
+  checkFavavorite(accountid, bookid) async {
+    loading = true;
+    isFavorite = await checkFav(accountid, bookid);
     loading = false;
     notifyListeners();
   }

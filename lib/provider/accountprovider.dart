@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hkl_books/DB/dbconfig.dart';
 import 'package:hkl_books/models/account.dart';
 import 'package:hkl_books/repository/api.dart';
 import 'package:hkl_books/screens/login/login.dart';
@@ -26,5 +27,10 @@ class AccountProvider extends ChangeNotifier {
     loading = true;
     account = await getAccountByEmail(account.email, account.password);
     loading = false;
+  }
+  getaccount(){
+    // AccountModel account;
+    DBConfig.instance.getAccount().then((value) => account = value);
+    return account;
   }
 }

@@ -6,6 +6,7 @@ import 'package:hkl_books/models/book2.dart';
 import 'package:hkl_books/models/category.dart';
 import 'package:hkl_books/models/favourite.dart';
 import 'package:hkl_books/models/promote.dart';
+import 'package:hkl_books/screens/favorite/favorite.dart';
 import 'package:http/http.dart' as http;
 
 String baseURL = 'http://10.0.2.2:8000/api/';
@@ -69,6 +70,30 @@ Future<List<Book2>> getAllBooksByCategory(categoryId) async {
   }
   return resultBooksByCategory;
 }
+
+
+Future<List<Book2>> getAllFavBooksByAccountId(accountid) async {
+  List<Book2> resultFavBooksByAccountId = [];
+  try {
+    final response = await http.get(
+      Uri.parse(baseURL + 'favourite/getAllBooksByFavourite/$accountid'),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      },
+    );
+    print('lenght:${resultFavBooksByAccountId.length}');
+    
+    if (response.statusCode == 200) {
+      final item = json.decode(response.body);
+      resultFavBooksByAccountId = (item as List).map((p) => Book2.fromJson(p)).toList();
+    }
+    
+  } catch (e) {
+    rethrow;
+  }
+  return resultFavBooksByAccountId;
+}
+
 
 Future<AccountModel> getAccountByEmail(email, password) async {
   //List<AccountModel> kq = [];
@@ -154,25 +179,7 @@ Future<List<Favourite>> getAllFavouritesBooksByAccountId(context) async {
 }
 
 
-Future<List<Favourite>> getAllBooksByBookId(context, bookId) async {
-  List<Favourite> resultBooksByBookId = [];
-  try {
-    final response = await http.get(
-      Uri.parse(baseURL + 'favourite/getAllBooksByBookId/$bookId'),
-      headers: {
-        HttpHeaders.contentTypeHeader: "application/json",
-      },
-    );
-    if (response.statusCode == 200) {
-      final item = json.decode(response.body);
-      resultBooksByBookId =
-          (item as List).map((p) => Favourite.fromJson(p)).toList();
-    }
-  } catch (e) {
-    rethrow;
-  }
-  return resultBooksByBookId;
-}
+
 
 
 Future<AccountModel> loginApp(email, password) async {
@@ -200,3 +207,66 @@ Future<AccountModel> loginApp(email, password) async {
 
   return resultAccount;
 }
+
+
+addFav(accountid, bookid) async {
+  Favourite resultFav = Favourite();
+  try {
+        final response = await http.post(Uri.parse(baseURL + 'favourite/addFav'),
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+        },
+        body: jsonEncode(<String, String>{
+          'AccountId': accountid,
+          'BookId': bookid,
+        }));
+    if(response.statusCode == 200){
+     return 'Thêm vào danh sách yêu thích thành công!';
+    }else { 
+      return 'Đã có trong danh sách yêu thích!';
+    }
+  } catch (e) {
+    rethrow;
+  }
+}
+
+checkFav(accountid, bookid) async {
+  try {
+        final response = await http.post(Uri.parse(baseURL + 'favourite/check/$bookid&$accountid'),
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+        },
+        );
+   return response.body;
+  } catch (e) {
+    rethrow;
+  }
+}
+
+
+// Future<Favourite> addFav(accountid, bookid) async {
+//   // List<Favourite> resultFavourite = [];
+//   Favourite resultAccount = Favourite();
+
+//   try {
+//     final response = await http.post(Uri.parse(baseURL + 'favourite/addFav'),
+//         headers: {
+//           HttpHeaders.contentTypeHeader: "application/json",
+//         },
+//         body:
+//             jsonEncode(<String, String>{'AccountId': accountid, 'BookId': bookid}));
+
+//     if (response.statusCode == 200) {
+//       final item = json.decode(response.body);
+//       resultFavourite.add(item);
+//     } else {
+//       // resultFavourite.status = response.statusCode;
+//     }
+//   } catch (e) {
+//     rethrow;
+//   }
+//   // return item;
+//   return resultFavourite;
+// }
+
+

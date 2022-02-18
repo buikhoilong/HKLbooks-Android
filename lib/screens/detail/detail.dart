@@ -2,8 +2,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hkl_books/DB/dbconfig.dart';
+import 'package:hkl_books/models/account.dart';
 import 'package:hkl_books/models/book2.dart';
+import 'package:hkl_books/provider/accountprovider.dart';
 import 'package:hkl_books/provider/bookprovider.dart';
+import 'package:hkl_books/provider/favouriteprovider.dart';
 import 'package:hkl_books/screens/cart/cart.dart';
 import 'package:provider/provider.dart';
 
@@ -15,24 +19,61 @@ class Detail extends StatefulWidget {
 }
 
 class _DetailState extends State<Detail> {
+  AccountModel account = AccountModel();
+  bool isFavorited = false;
+
   @override
   void initState() {
     super.initState();
-    final booksMdl = Provider.of<BookProvider>(context, listen: false);
-    booksMdl.getProduct(context);
+    Provider.of<BookProvider>(context, listen: false).getProduct(context);
+    account = DBConfig.instance.account;
+     Provider.of<FavouriteProvider>(context, listen: false).checkFavavorite(account.id, widget.bookModel.id);
+     isFavorited = Provider.of<FavouriteProvider>(context, listen: false).isFavorite;
+    //  print(isFavorited);
   }
 
-  bool isFavorited = false;
-  // This widget is the root of your application.
+  
+// ignore: non_constant_identifier_names
+ShowDialog(context, text) {
+   
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(text,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontSize: 18,
+                  letterSpacing: 0.5,
+                )),
+            actions: [
+              Container(
+                alignment: Alignment.center,
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Đóng'))
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
+  }
 
   void toggeFavorite() {
-    setState(() {
-      if (isFavorited) {
-        isFavorited = false;
+    if (isFavorited == true) {
+        ShowDialog(context,"Đã có trong danh sach yêu thích");
       } else {
-        isFavorited = true;
+        Provider.of<FavouriteProvider>(context, listen: false).addFav(account.id,widget.bookModel.id);
+        String mess = Provider.of<FavouriteProvider>(context, listen: false).Message;
+        print(mess);
+        ShowDialog(context, mess);
       }
-    });
   }
 
   @override
