@@ -13,4 +13,18 @@ class BookProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  getBooksByPromoteId(context, promoteId) async {
+    loading = true;
+    books = await getAllBooksByPromoteId(context, promoteId);
+    loading = false;
+    notifyListeners();
+  }
+
+  getBooksByCategoryId(categoryId) async {
+    loading = true;
+    books = await getAllBooksByCategory(categoryId);
+    loading = false;
+    notifyListeners();
+  }
 }

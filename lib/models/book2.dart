@@ -15,7 +15,7 @@ class Book2 {
   String? createdAt;
   String? updatedAt;
   String? deletedAt;
-
+  String categoryName;
   Book2(
       {required this.id,
       required this.name,
@@ -32,7 +32,8 @@ class Book2 {
       required this.status,
       this.createdAt,
       this.updatedAt,
-      this.deletedAt});
+      this.deletedAt,
+      required this.categoryName});
 
   factory Book2.fromJson(Map<String, dynamic> json) => Book2(
         id: json['Id'],
@@ -51,6 +52,7 @@ class Book2 {
         createdAt: json['created_at'],
         updatedAt: json['updated_at'],
         deletedAt: json['deleted_at'],
+        categoryName: json['CategoryName'],
       );
 
   Map<String, dynamic> toJson() {
@@ -71,6 +73,7 @@ class Book2 {
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['deleted_at'] = deletedAt;
+    data['CategoryName'] = categoryName;
     return data;
   }
 }

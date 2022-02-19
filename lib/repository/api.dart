@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:hkl_books/config.dart';
 import 'package:hkl_books/models/account.dart';
 import 'package:hkl_books/models/book2.dart';
+import 'package:hkl_books/models/category.dart';
+import 'package:hkl_books/models/promote.dart';
 import 'package:http/http.dart' as http;
 
 // String baseURL = 'http://10.0.2.2:8000/api/';
@@ -28,6 +30,46 @@ Future<List<Book2>> getAllBook(context) async {
   return resultBook;
 }
 
+Future<List<Book2>> getAllBooksByPromoteId(context, promoteId) async {
+  List<Book2> resultBooksByPromote = [];
+  try {
+    final response = await http.get(
+      Uri.parse(baseURL + 'promote/allBooksByPromoteId/$promoteId'),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      },
+    );
+    if (response.statusCode == 200) {
+      final item = json.decode(response.body);
+      resultBooksByPromote =
+          (item as List).map((p) => Book2.fromJson(p)).toList();
+    }
+  } catch (e) {
+    rethrow;
+  }
+  return resultBooksByPromote;
+}
+
+Future<List<Book2>> getAllBooksByCategory(categoryId) async {
+  List<Book2> resultBooksByCategory = [];
+  try {
+    final response = await http.get(
+      Uri.parse(baseURL + 'category/getAllBooksByCategoryId/$categoryId'),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      },
+    );
+    if (response.statusCode == 200) {
+      final item = json.decode(response.body);
+      resultBooksByCategory =
+          (item as List).map((p) => Book2.fromJson(p)).toList();
+    }
+  } catch (e) {
+    rethrow;
+  }
+  return resultBooksByCategory;
+}
+
 Future<AccountModel> getAccountByEmail(email, password) async {
   //List<AccountModel> kq = [];
   AccountModel resultAccount = AccountModel();
@@ -49,6 +91,46 @@ Future<AccountModel> getAccountByEmail(email, password) async {
   }
 
   return resultAccount;
+}
+
+Future<List<Promote>> getAllPromoteTypes(context) async {
+  List<Promote> resultPromote = [];
+  try {
+    final response = await http.get(
+      Uri.parse(baseURL + 'promote'),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      },
+    );
+    if (response.statusCode == 200) {
+      final item = json.decode(response.body);
+
+      resultPromote = (item as List).map((p) => Promote.fromJson(p)).toList();
+    }
+  } catch (e) {
+    rethrow;
+  }
+  return resultPromote;
+}
+
+Future<List<Category>> getAllCategory(context) async {
+  List<Category> resultCategory = [];
+  try {
+    final response = await http.get(
+      Uri.parse(baseURL + 'category'),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      },
+    );
+    if (response.statusCode == 200) {
+      final item = json.decode(response.body);
+
+      resultCategory = (item as List).map((p) => Category.fromJson(p)).toList();
+    }
+  } catch (e) {
+    rethrow;
+  }
+  return resultCategory;
 }
 
 Future<AccountModel> loginApp(email, password) async {

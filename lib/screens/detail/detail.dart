@@ -164,9 +164,10 @@ class _DetailState extends State<Detail> {
                               ),
                               // ignore: avoid_unnecessary_containers
                               Container(
+                                width: 230,
                                 child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    // mainAxisAlignment:
+                                    //     MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         widget.bookModel.name,
@@ -177,7 +178,7 @@ class _DetailState extends State<Detail> {
                                         textAlign: TextAlign.center,
                                       ),
                                       SizedBox(
-                                        height: 20,
+                                        height: 10,
                                       ),
                                       Text(
                                         "- ${widget.bookModel.author} -",
@@ -214,7 +215,7 @@ class _DetailState extends State<Detail> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text('Thể loại'),
-                            Text(widget.bookModel.categoryId)
+                            Text(widget.bookModel.categoryName)
                           ],
                         ),
                         Row(

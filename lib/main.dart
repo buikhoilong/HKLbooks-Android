@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hkl_books/provider/bookprovider.dart';
+import 'package:hkl_books/provider/categoryprovider.dart';
+import 'package:hkl_books/provider/promoteprovider.dart';
 import 'package:hkl_books/screens/loading/loading.dart';
 import 'package:provider/provider.dart';
 import 'config.dart';
@@ -17,7 +19,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<BookProvider>(create: (_) => BookProvider()),
-          ChangeNotifierProvider<AccountProvider>(create: (_) => AccountProvider()),
+          ChangeNotifierProvider<AccountProvider>(
+              create: (_) => AccountProvider()),
+          ChangeNotifierProvider<PromoteProvider>(
+              create: (_) => PromoteProvider()),
+          ChangeNotifierProvider<CategoryProvider>(
+              create: (_) => CategoryProvider()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
