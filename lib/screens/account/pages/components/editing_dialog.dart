@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hkl_books/DB/dbconfig.dart';
+import 'package:hkl_books/models/account.dart';
+import 'package:hkl_books/provider/accountprovider.dart';
 import 'package:hkl_books/screens/account/components/my_show_dialog.dart';
+import 'package:provider/provider.dart';
 
 showDialogEdit(
     context, String name, TextEditingController editedValue, hintText) {
@@ -78,16 +82,49 @@ showDialogEdit(
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          editedValue.text.isEmpty
-                              ? myShowDialog(
-                                  context, 'Vui lòng nhập ' + name + ' mới')
-                              : null;
-                          if (name == 'Mật khẩu') {
-                            editedValue.text != confirmPass.text
-                                ? myShowDialog(
-                                    context, 'Mật khẩu không trùng khớp!')
-                                : null;
+                          if (editedValue.text.isEmpty) {
+                            myShowDialog(
+                                context, 'Vui lòng nhập ' + name + ' mới');
+                          } else {
+                            DBConfig.instance.getAccount();
+                            AccountModel account = DBConfig.instance.account;
+                            Provider.of<AccountProvider>(context, listen: false)
+                                .update(account.id, editedValue.text, name);
+                            print(account.status);
+                            switch (account.status) {
+                              case 400:
+                                myShowDialog(
+                                    context, 'Tài khoản không tồn tại');
+                                break;
+                              case 401:
+                                myShowDialog(
+                                    context, 'Số điện thoại đã tồn tại');
+                                break;
+                              case 402:
+                                myShowDialog(context, 'Cập nhật thất bại!');
+                                break;
+                              default:
+                                {
+                                  DBConfig.instance.getAccount();
+                                  // ignore: avoid_print
+                                  print(account.name);
+                                  myShowDialog(
+                                      context, 'Cập nhật $name thành công!');
+                                  // const Duration(seconds: 1);
+                                  () => Navigator.pop(context);
+                                }
+                            }
                           }
+                          // editedValue.text.isEmpty
+                          //     ? myShowDialog(
+                          //         context, 'Vui lòng nhập ' + name + ' mới')
+                          //     : null;
+                          // if (name == 'Mật khẩu') {
+                          //   editedValue.text != confirmPass.text
+                          //       ? myShowDialog(
+                          //           context, 'Mật khẩu không trùng khớp!')
+                          //       : null;
+                          // }
                         },
                         child: const Text('Cập nhật')),
                     ElevatedButton(

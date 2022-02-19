@@ -9,6 +9,7 @@ class DBConfig {
 
   Future<Database?> get db async {
     if (_db != null) {
+      // getAccount();
       return _db!;
     }
 
@@ -32,6 +33,7 @@ class DBConfig {
         'CREATE TABLE local_accounts (Id TEXT  PRIMARY KEY,  Name TEXT, Birthday NUMERIC, Address TEXT, Phone TEXT, Status INTEGER, Email TEXT, Password TEXT, Role INTEGER, Avatar TEXT, created_at TEXT, updated_at TEXT, deleted_at TEXT)');
   }
 
+  AccountModel account = AccountModel();
   Future<AccountModel> insertAccount(AccountModel account) async {
     var dbClient = await db;
     await dbClient!.insert('local_accounts', account.toJson());
@@ -42,7 +44,8 @@ class DBConfig {
   Future<AccountModel> getAccount() async {
     var dbClient = await db;
     final queryResult = await dbClient!.query('local_accounts');
-    return AccountModel.fromJson(queryResult.first);
+    account = AccountModel.fromJson(queryResult.first);
+    return account;
   }
 
   Future<AccountModel?> deleteAccount(AccountModel? account) async {
