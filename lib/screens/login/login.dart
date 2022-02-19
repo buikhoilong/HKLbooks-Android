@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hkl_books/DB/dbconfig.dart';
-import 'package:hkl_books/models/account.dart';
 import 'package:hkl_books/provider/accountprovider.dart';
+import 'package:hkl_books/screens/account/components/my_show_dialog.dart';
 import 'package:hkl_books/screens/main_screen/main_screen.dart';
 import 'package:hkl_books/screens/register/register.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +17,9 @@ class _LoginState extends State<Login> {
   login(email, password) {}
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+
+  bool validatePassword = false, validateEmail = false;
+  String validateEmailMessage = "", validatePasswordMessage = "";
   @override
   void initState() {
     email = TextEditingController();
@@ -24,35 +27,7 @@ class _LoginState extends State<Login> {
     super.initState();
   }
 
-  ShowDialog(context, text) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(text,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.red,
-                  fontSize: 18,
-                  letterSpacing: 0.5,
-                )),
-            actions: [
-              Container(
-                alignment: Alignment.center,
-                child: Column(
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Đóng'))
-                  ],
-                ),
-              ),
-            ],
-          );
-        });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +54,8 @@ class _LoginState extends State<Login> {
                       child: TextField(
                         controller: email,
                         decoration: InputDecoration(
+                          errorText:
+                              validateEmail ? validateEmailMessage : null,
                           prefixIcon: const Icon(Icons.account_circle,
                               color: Colors.green, size: 25),
                           labelText: 'Email',
@@ -94,6 +71,8 @@ class _LoginState extends State<Login> {
                         controller: password,
                         obscureText: true,
                         decoration: InputDecoration(
+                          errorText:
+                              validatePassword ? validatePasswordMessage : null,
                           prefixIcon: const Icon(
                             Icons.vpn_key_outlined,
                             color: Colors.green,
@@ -124,24 +103,50 @@ class _LoginState extends State<Login> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50))),
                           onPressed: () async {
-                            if (email.text.isEmpty) {
-                              ShowDialog(context, 'Chưa nhập Email!');
-                            } else if (password.text.isEmpty) {
-                              ShowDialog(context, 'Chưa nhập Password!');
+                            if (email.text.isEmpty || password.text.isEmpty) {
+                              setState(() {
+                                email.text.isEmpty
+                                    ? {
+                                        validateEmail = true,
+                                        validateEmailMessage =
+                                            'Vui lòng điền Email!'
+                                      }
+                                    : validateEmail = false;
+                                password.text.isEmpty
+                                    ? {
+                                        validatePassword = true,
+                                        validatePasswordMessage =
+                                            'Vui lòng điền Mật khẩu'
+                                      }
+                                    : validatePassword = false;
+                              });
                             } else {
                               await Provider.of<AccountProvider>(context,
                                       listen: false)
                                   .login(email.text, password.text);
-                              if (data.account.status == 400) {
-                                ShowDialog(context,
-                                    '${data.account.email.toString()}\n${data.account.password}');
-                              } else if (data.account.status == 401) {
-                                ShowDialog(
-                                    context, 'Email chưa đăng ký tài khoản!');
-                              } else if (data.account.status == 402) {
-                                ShowDialog(context, 'Mật khẩu không đúng!');
-                              } else {
-                                ShowDialog(context, 'Đăng Nhập thành công!');
+                              setState(() {
+                                if (data.account.status == 401) {
+                                  validateEmail = true;
+                                  validateEmailMessage =
+                                      'Email chưa đăng ký tài khoản!';
+                                  // ShowDialog(
+                                  //     context, 'Email chưa đăng ký tài khoản!');
+                                } else {
+                                  validateEmail = false;
+                                }
+
+                                if (data.account.status == 402) {
+                                  validatePassword = true;
+                                  validatePasswordMessage =
+                                      'Mật khẩu không đúng!';
+                                  // ShowDialog(
+                                  //     context, 'Email chưa đăng ký tài khoản!');
+                                } else {
+                                  validatePassword = false;
+                                }
+                              });
+                              if (data.account.status! < 400) {
+                                myShowDialog(context, 'Đăng Nhập thành công!');
                                 DBConfig.instance.insertAccount(data.account);
                                 Future.delayed(
                                     const Duration(seconds: 1),

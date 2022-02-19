@@ -124,7 +124,7 @@ class _ReviewOrderState extends State<ReviewOrder> {
                         // ignore: deprecated_member_use
                         child: RaisedButton(
                           shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0)),
+                              borderRadius: BorderRadius.circular(30.0)),
                           color: myGreen,
                           child: const Text(
                             "Gửi đánh giá",

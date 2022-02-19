@@ -75,3 +75,55 @@ Future<AccountModel> loginApp(email, password) async {
 
   return resultAccount;
 }
+
+Future<AccountModel> registerApp(name, email, phone, password, address) async {
+  AccountModel resultAccount = AccountModel();
+  try {
+    final response = await http.post(Uri.parse(baseURL + 'account/register'),
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+        },
+        // headers: <String, String>{
+        //   'Content-Type': 'application/json; charset=UTF-8',
+        // },
+        body: jsonEncode(<String, String>{
+          'Name': name,
+          'Email': email,
+          'Phone': phone,
+          'Password': password,
+          'Address': address
+        }));
+
+    resultAccount.status = response.statusCode;
+  } catch (e) {
+    rethrow;
+  }
+
+  return resultAccount;
+}
+
+Future<AccountModel> updateAccount(name, email, phone, password, address) async {
+  AccountModel resultAccount = AccountModel();
+  try {
+    final response = await http.post(Uri.parse(baseURL + 'account/register'),
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+        },
+        // headers: <String, String>{
+        //   'Content-Type': 'application/json; charset=UTF-8',
+        // },
+        body: jsonEncode(<String, String>{
+          'Name': name,
+          'Email': email,
+          'Phone': phone,
+          'Password': password,
+          'Address': address
+        }));
+
+    resultAccount.status = response.statusCode;
+  } catch (e) {
+    rethrow;
+  }
+
+  return resultAccount;
+}

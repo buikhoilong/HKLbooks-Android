@@ -66,17 +66,24 @@ class _AccountDetailState extends State<AccountDetail> {
               ),
             ),
             EditButton(
-                icon: 'user.svg',
-                title: 'Họ tên',
-                name: snapshot.data!.name.toString()),
+              icon: 'user.svg',
+              title: 'Họ tên',
+              name: snapshot.data!.name.toString(),
+              onTaps: () {},
+            ),
+            
             EditButton(
-                icon: 'phone.svg',
-                title: 'Số điện thoại',
-                name: snapshot.data!.phone.toString()),
+              icon: 'date.svg',
+              title: 'Sinh nhật',
+              name: snapshot.data!.birthday.toString(),
+              onTaps: () {},
+            ),
             EditButton(
-                icon: 'date.svg',
-                title: 'Ngày tháng năm sinh',
-                name: snapshot.data!.birthday.toString()),
+              icon: 'location.svg',
+              title: 'Địa chỉ',
+              name: snapshot.data!.address.toString(),
+              onTaps: () {},
+            ),
           ]);
         },
       ),
