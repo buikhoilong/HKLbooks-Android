@@ -1,17 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:hkl_books/config.dart';
 import 'package:hkl_books/models/account.dart';
 import 'package:hkl_books/models/book2.dart';
 import 'package:http/http.dart' as http;
 
-String baseURL = 'http://10.0.2.2:8000/api/';
+// String baseURL = 'http://10.0.2.2:8000/api/';
 
 Future<List<Book2>> getAllBook(context) async {
   List<Book2> resultBook = [];
   try {
     final response = await http.get(
-      Uri.parse(baseURL + 'book'),
+      Uri.parse(apiURL + 'book'),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       },
@@ -32,7 +33,7 @@ Future<AccountModel> getAccountByEmail(email, password) async {
   AccountModel resultAccount = AccountModel();
   try {
     final response = await http.get(
-      Uri.parse(baseURL + 'account/$email&$password'),
+      Uri.parse(apiURL + 'account/$email&$password'),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       },
@@ -53,7 +54,7 @@ Future<AccountModel> getAccountByEmail(email, password) async {
 Future<AccountModel> loginApp(email, password) async {
   AccountModel resultAccount = AccountModel();
   try {
-    final response = await http.post(Uri.parse(baseURL + 'account/login'),
+    final response = await http.post(Uri.parse(apiURL + 'account/login'),
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
         },
@@ -79,7 +80,7 @@ Future<AccountModel> loginApp(email, password) async {
 Future<AccountModel> registerApp(name, email, phone, password, address) async {
   AccountModel resultAccount = AccountModel();
   try {
-    final response = await http.post(Uri.parse(baseURL + 'account/register'),
+    final response = await http.post(Uri.parse(apiURL + 'account/register'),
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
         },
@@ -102,10 +103,10 @@ Future<AccountModel> registerApp(name, email, phone, password, address) async {
   return resultAccount;
 }
 
-Future<AccountModel> updateAccount(name, email, phone, password, address) async {
+Future<AccountModel> updateAccount(id, value, type) async {
   AccountModel resultAccount = AccountModel();
   try {
-    final response = await http.post(Uri.parse(baseURL + 'account/register'),
+    final response = await http.post(Uri.parse(apiURL + 'account/register'),
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
         },
@@ -113,14 +114,16 @@ Future<AccountModel> updateAccount(name, email, phone, password, address) async 
         //   'Content-Type': 'application/json; charset=UTF-8',
         // },
         body: jsonEncode(<String, String>{
-          'Name': name,
-          'Email': email,
-          'Phone': phone,
-          'Password': password,
-          'Address': address
+          'Id': id,
+          '$type': value,
         }));
-
-    resultAccount.status = response.statusCode;
+    if(response.statusCode == 200){
+      final item = json.decode(response.body);
+      resultAccount = AccountModel.fromJson(item);
+    }else{
+      resultAccount.status = response.statusCode;
+    }
+    
   } catch (e) {
     rethrow;
   }

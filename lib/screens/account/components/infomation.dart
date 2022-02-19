@@ -31,8 +31,11 @@ class Infomation extends StatelessWidget {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(75)),
                           image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/images/${snapshot.data!.avatar.toString()}')))),
+                              image: NetworkImage(avatarsImgURL +
+                                  snapshot.data!.avatar.toString())
+                              // AssetImage(
+                              //     'assets/images/${snapshot.data!.avatar.toString()}')
+                              ))),
                   const SizedBox(height: 15),
                   Text(snapshot.data!.name.toString(),
                       style: const TextStyle(

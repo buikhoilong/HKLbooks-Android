@@ -33,8 +33,9 @@ class AccountProvider extends ChangeNotifier {
     loading = false;
   }
 
-  updateName(name) async {
+  update(id, value, type) async {
     loading = true;
-    // account = await updateAccount(name, email, phone, password, address);
+    account = await updateAccount(id, value, type);
+    loading = false;
   }
 }
