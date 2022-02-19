@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hkl_books/screens/favorite/favorite.dart';
 import 'package:hkl_books/screens/my_order/my_order.dart';
 
 import 'components/function_button.dart';
@@ -32,6 +33,10 @@ class _AccountState extends State<Account> {
                       icon: 'user.svg',
                       navigateTo: AccountDetail()),
                   FunctionButton(
+                      name: 'Danh sách yêu thích',
+                      icon: 'order.svg',
+                      navigateTo: Favorite()),
+                  FunctionButton(
                       name: 'Bảo mật tài khoản',
                       icon: 'Lock.svg',
                       navigateTo: AccountSercurity()),
@@ -47,6 +52,7 @@ class _AccountState extends State<Account> {
                       name: 'Cài đặt',
                       icon: 'setting.svg',
                       navigateTo: Setting()),
+                      
                   // FunctionButton(
                   //     name: 'Đăng nhập', icon: 'user.svg', navigateTo: Login()),
                 ],

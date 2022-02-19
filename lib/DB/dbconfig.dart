@@ -34,6 +34,7 @@ class DBConfig {
   }
 
   AccountModel account = AccountModel();
+
   Future<AccountModel> insertAccount(AccountModel account) async {
     var dbClient = await db;
     await dbClient!.insert('local_accounts', account.toJson());
@@ -47,6 +48,7 @@ class DBConfig {
     account = AccountModel.fromJson(queryResult.first);
     return account;
   }
+
 
   Future<AccountModel?> deleteAccount(AccountModel? account) async {
     var dbClient = await db;
