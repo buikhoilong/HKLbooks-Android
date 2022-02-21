@@ -24,8 +24,9 @@ class _DetailState extends State<Detail> {
     super.initState();
     DBConfig.instance.getAccount();
     account = DBConfig.instance.account;
-    Provider.of<FavouriteProvider>(context, listen: false)
-        .checkFavavorite(account.id, widget.bookModel.id);
+    Provider.of<FavouriteProvider>(context, listen: false).checkFavavorite(account.id, widget.bookModel.id);
+    print(account.id);
+    print(widget.bookModel.id);
     isFavorited =
         Provider.of<FavouriteProvider>(context, listen: false).isFavorite;
     print(isFavorited);

@@ -19,7 +19,7 @@ class FavouriteProvider extends ChangeNotifier {
 
   addFav(accountid, bookid) async {
     loading = true;
-    Message = await addFav(accountid, bookid);
+    Message = await addFavourite(accountid, bookid);
     loading = false;
     notifyListeners();
   }
@@ -27,8 +27,6 @@ class FavouriteProvider extends ChangeNotifier {
   checkFavavorite(accountid, bookid) async {
     loading = true;
     isFavorite = await checkFav(accountid, bookid);
-    print('Provider: ' + accountid.toString());
-
     loading = false;
     notifyListeners();
   }
