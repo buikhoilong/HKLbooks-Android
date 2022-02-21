@@ -14,6 +14,7 @@ class ListBookItem extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: listBook.map((item) {
             return InkWell(
                 onTap: () => Navigator.push(
