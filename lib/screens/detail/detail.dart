@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hkl_books/DB/dbconfig.dart';
+import 'package:hkl_books/config.dart';
 import 'package:hkl_books/models/account.dart';
 import 'package:hkl_books/models/book2.dart';
-import 'package:hkl_books/provider/bookprovider.dart';
 import 'package:hkl_books/provider/favouriteprovider.dart';
 import 'package:hkl_books/screens/cart/cart.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +27,7 @@ class _DetailState extends State<Detail> {
         .checkFavavorite(account.id, widget.bookModel.id);
     isFavorited =
         Provider.of<FavouriteProvider>(context, listen: false).isFavorite;
-    //  print(isFavorited);
+    print(isFavorited);
   }
 
 // ignore: non_constant_identifier_names
@@ -164,17 +164,15 @@ class _DetailState extends State<Detail> {
                                   // padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 0, 20, 0)),
-                              // ignore: avoid_unnecessary_containers
+
                               Container(
-                                child: Flexible(
-                                  child: Text(
-                                    widget.bookModel.detail,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                    ),
-                                    // maxLines: 3,
-                                    textAlign: TextAlign.center,
+                                child: Text(
+                                  widget.bookModel.detail,
+                                  style: const TextStyle(
+                                    fontSize: 15,
                                   ),
+                                  // maxLines: 3,
+                                  textAlign: TextAlign.justify,
                                 ),
                                 padding:
                                     const EdgeInsets.fromLTRB(15, 20, 15, 15),
@@ -239,13 +237,6 @@ class _DetailState extends State<Detail> {
                         const Text('Thông tin chi tiết'),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text('Ngày xuất bản'),
-                            Text('11/10/2021')
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text('Thể loại'),
                             Text(widget.bookModel.categoryName)
@@ -261,8 +252,15 @@ class _DetailState extends State<Detail> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            const Text('Nhà xuất bản'),
+                            Text(widget.bookModel.publisher)
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             const Text('Giá bán lẻ'),
-                            Text(widget.bookModel.price.toString())
+                            Text(formatMoney.format(widget.bookModel.price))
                           ],
                         ),
                       ],
