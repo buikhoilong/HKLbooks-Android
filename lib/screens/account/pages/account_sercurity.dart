@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hkl_books/DB/dbconfig.dart';
 import 'package:hkl_books/config.dart';
 import 'package:hkl_books/models/account.dart';
+import 'package:hkl_books/screens/account/components/my_show_dialog.dart';
 import 'package:hkl_books/screens/main_screen/main_screen.dart';
 import 'components/edit_button.dart';
 import 'components/my_app_bar.dart';
@@ -22,6 +23,7 @@ class _AccountSercurityState extends State<AccountSercurity> {
     acc = DBConfig.instance.account;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,11 +77,14 @@ class _AccountSercurityState extends State<AccountSercurity> {
                   onPressed: () async {
                     // print(snapshot.data);
                     await DBConfig.instance.deleteAccount(acc);
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MainScreen()),
-                        (route) => false);
+                    myShowDialog(context, 'Đăng Xuất thành công!');
+                    Future.delayed(
+                        const Duration(seconds: 1),
+                        () => Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MainScreen()),
+                            (route) => false));
                   },
                   style: ElevatedButton.styleFrom(
                     primary: myRed,

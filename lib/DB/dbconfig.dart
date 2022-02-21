@@ -60,16 +60,22 @@ class DBConfig {
   Future<AccountModel> getAccount() async {
     var dbClient = await db;
     final queryResult = await dbClient!.query('local_accounts');
-    account = AccountModel.fromJson(queryResult.first);
+
+    Map<String, Object?> _data;
+    if (queryResult.isEmpty) {
+      _data = {'Message': null};
+    } else {
+      _data = queryResult.first;
+    }
+    account = AccountModel.fromJson(_data);
     return account;
   }
 
   Future<AccountModel?> deleteAccount(AccountModel? account) async {
     var dbClient = await db;
-    await dbClient!
-        .delete('local_accounts', where: 'id = ?', whereArgs: [account!.id]);
+    await dbClient!.delete('local_accounts');
     // print("Xóa thành công!");
-    return account;
+    // return account;
   }
 
   // checkLogined() async {
