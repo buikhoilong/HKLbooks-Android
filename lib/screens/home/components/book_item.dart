@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hkl_books/DB/dbconfig.dart';
 import 'package:hkl_books/config.dart';
 import 'package:hkl_books/models/book2.dart';
+import 'package:hkl_books/screens/cart/components/add_to_cart.dart';
 
 // ignore: must_be_immutable
 class BookItem extends StatelessWidget {
@@ -89,7 +91,7 @@ class BookItem extends StatelessWidget {
             child: Text(
               formatMoney.format(book2.price),
               style: const TextStyle(
-                fontSize: 15,
+                fontSize: 20,
                 color: Colors.red,
                 fontWeight: FontWeight.bold,
               ),
@@ -98,6 +100,52 @@ class BookItem extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
+          Container(
+            // padding: EdgeInsets.all(5),
+            margin: EdgeInsets.all(5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: myGreen,
+                    padding: const EdgeInsets.all(15),
+                  ),
+                  onPressed: () {
+                    DBConfig.instance.getAccount();
+                    addToCart(context, DBConfig.instance.account.id, book2.id);
+                  },
+                  child: const Text(
+                    'Thêm vô Giỏ hàng',
+                    style: TextStyle(
+                      color: Colors.white,
+                      // fontSize: 20,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: myGreen,
+                    padding: const EdgeInsets.all(15),
+                  ),
+                  onPressed: () {
+                    DBConfig.instance.getAccount();
+                    bool check = addToCart(
+                        context, DBConfig.instance.account.id, book2.id);
+                  },
+                  child: const Text(
+                    '   Mua sách ngay   ',
+                    style: TextStyle(
+                      color: Colors.white,
+                      // fontSize: 20,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+              ],
+            ),
+          )
         ],
       ),
     );
