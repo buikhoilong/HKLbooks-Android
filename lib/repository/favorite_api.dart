@@ -49,10 +49,10 @@ Future<List<Favourite>> getAllFavouritesBooksByAccountId(context) async {
   return resultFavorite;
 }
 
-addFav(accountid, bookid) async {
+addFavourite(accountid, bookid) async {
   Favourite resultFav = Favourite();
   try {
-    final response = await http.post(Uri.parse(baseURL + 'favourite/addFav'),
+    final response = await http.post(Uri.parse(apiURL + 'favourite/addFav'),
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
         },
@@ -60,6 +60,9 @@ addFav(accountid, bookid) async {
           'AccountId': accountid,
           'BookId': bookid,
         }));
+        print(accountid);
+        print(bookid);
+        print(response.statusCode);
     if (response.statusCode == 200) {
       return 'Thêm vào danh sách yêu thích thành công!';
     } else {
@@ -70,7 +73,7 @@ addFav(accountid, bookid) async {
   }
 }
 
-checkFav(accountid, bookid) async {
+checkFav(bookid,accountid) async {
   try {
     final response = await http.get(
       Uri.parse(apiURL + 'favourite/check/$bookid&$accountid'),

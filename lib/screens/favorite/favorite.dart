@@ -15,14 +15,13 @@ class Favorite extends StatefulWidget {
 }
 
 class _FavoriteState extends State<Favorite> {
-  @override
   AccountModel account = DBConfig.instance.account;
   List<Book2> favBooks = [];
+  @override
   void initState() {
     super.initState();
     final favourite = Provider.of<FavouriteProvider>(context, listen: false);
     favourite.getAllBooks(account.id);
-    print(account.id);
     favBooks =
         Provider.of<FavouriteProvider>(context, listen: false).favoritebooks;
   }
