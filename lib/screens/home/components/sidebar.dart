@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hkl_books/DB/dbconfig.dart';
 import 'package:hkl_books/models/account.dart';
+import 'package:hkl_books/models/category.dart';
 import 'package:hkl_books/provider/categoryprovider.dart';
 import 'package:hkl_books/screens/account/account.dart';
 import 'package:hkl_books/screens/favorite/favorite.dart';
@@ -20,17 +21,42 @@ class SideBar extends StatefulWidget {
 }
 
 class _SideBarState extends State<SideBar> {
+  bool show = false;
+  late List<Category> categoryList;
+
+  @override
+  void initState() {
+    Provider.of<CategoryProvider>(context, listen: false).getCategory(context);
+    categoryList =
+        Provider.of<CategoryProvider>(context, listen: false).categories;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      elevation: 12,
       child: FutureBuilder(
           future: DBConfig.instance.getAccount(),
           builder: (context, AsyncSnapshot<AccountModel> snapshot) {
             if (snapshot.hasData) {
-              return Column(
+              return ListView(
                 //padding: EdgeInsets.zero,
                 children: [
+                  SizedBox(
+                    height: 80,
+                    child: Image.asset(
+                      'assets/images/LogoHKL.png',
+
+                      // fit: BoxFit.cover,
+                    ),
+                  ),
                   UserAccountsDrawerHeader(
+                    onDetailsPressed: () => setState(() {
+                      show = !show;
+                    }),
+                    margin:
+                        const EdgeInsets.only(bottom: 8, right: 10, left: 10),
                     accountName: Text(snapshot.data!.name.toString()),
                     accountEmail: Text(snapshot.data!.email.toString()),
                     currentAccountPicture: CircleAvatar(
@@ -44,39 +70,44 @@ class _SideBarState extends State<SideBar> {
                       ),
                     ),
                     decoration: const BoxDecoration(
-                        image: DecorationImage(
-                      image: AssetImage('assets/images/LogoHKLBooks.jpg'),
-                      fit: BoxFit.cover,
-                    )),
+                      color: myGreen,
+                      // image: DecorationImage(
+                      //   image: AssetImage('assets/images/LogoHKLBooks.jpg'),
+                      //   fit: BoxFit.cover,
+                      // ),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.favorite),
-                    title: const Text('Yêu thích'),
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Favorite())),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.notifications),
-                    title: const Text('Thông báo'),
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Notify())),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.settings),
-                    title: const Text('Cài đặt'),
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Account())),
-                  ),
-                  const Divider(),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  if (show) ...[
+                    ListTile(
+                      leading: const Icon(Icons.favorite),
+                      title: const Text('Yêu thích'),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Favorite())),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.notifications),
+                      title: const Text('Thông báo'),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Notify())),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.account_box_rounded),
+                      title: const Text('Tài khoản'),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Account())),
+                    ),
+                    const Divider(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
                   Container(
                     alignment: Alignment.center,
                     child: const Text(
@@ -88,7 +119,9 @@ class _SideBarState extends State<SideBar> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const CategoriesList(),
+                  CategoriesList(
+                    listCategorite: categoryList,
+                  ),
                 ],
               );
             }
@@ -125,7 +158,7 @@ class _SideBarState extends State<SideBar> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const CategoriesList(),
+                // const CategoriesList(),
               ],
             );
           }),

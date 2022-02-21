@@ -64,9 +64,9 @@ class BookItem extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Flexible(
+          Flexible(
+            child: Container(
+              padding: const EdgeInsets.only(left: 15),
               child: Text(
                 book2.name,
                 style: const TextStyle(fontSize: 18),
@@ -76,7 +76,7 @@ class BookItem extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Padding(
+          Container(
             padding: const EdgeInsets.only(left: 15),
             child: Text(
               book2.author,
@@ -89,7 +89,7 @@ class BookItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Text(
-              book2.price.toString() + " VND",
+              formatMoney.format(book2.price),
               style: const TextStyle(fontSize: 15, color: Colors.red),
             ),
           ),

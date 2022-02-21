@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:hkl_books/models/account.dart';
 import 'package:hkl_books/models/book2.dart';
-import 'package:hkl_books/repository/api.dart';
+import 'package:hkl_books/repository/favorite_api.dart';
+import 'package:hkl_books/repository/book_api.dart';
+import 'package:hkl_books/repository/category_api.dart';
 
 class BookProvider extends ChangeNotifier {
   List<Book2> books = [];
@@ -16,20 +17,10 @@ class BookProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  getBooksByPromoteId(context, promoteId) async {
-    loading = true;
-    books = await getAllBooksByPromoteId(context, promoteId);
-    loading = false;
-    notifyListeners();
-  }
-
   getBooksByCategoryId(categoryId) async {
     loading = true;
     books = await getAllBooksByCategory(categoryId);
     loading = false;
     notifyListeners();
   }
-
-
-
 }

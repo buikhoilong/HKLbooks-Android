@@ -3,6 +3,7 @@ import 'package:hkl_books/DB/dbconfig.dart';
 import 'package:hkl_books/models/account.dart';
 import 'package:hkl_books/provider/accountprovider.dart';
 import 'package:hkl_books/screens/account/components/my_show_dialog.dart';
+import 'package:hkl_books/screens/account/pages/account_detail.dart';
 import 'package:provider/provider.dart';
 
 showDialogEdit(
@@ -90,7 +91,6 @@ showDialogEdit(
                             AccountModel account = DBConfig.instance.account;
                             Provider.of<AccountProvider>(context, listen: false)
                                 .update(account.id, editedValue.text, name);
-                            print(account.status);
                             switch (account.status) {
                               case 400:
                                 myShowDialog(
@@ -105,13 +105,14 @@ showDialogEdit(
                                 break;
                               default:
                                 {
-                                  DBConfig.instance.getAccount();
-                                  // ignore: avoid_print
-                                  print(account.name);
+                                  // DBConfig.instance.getAccount();
+                                  // // ignore: avoid_print
+                                  // print(account.name);
+                                  Navigator.pop(context);
                                   myShowDialog(
                                       context, 'Cập nhật $name thành công!');
                                   // const Duration(seconds: 1);
-                                  () => Navigator.pop(context);
+                                  // Navigator.pop(context);
                                 }
                             }
                           }
