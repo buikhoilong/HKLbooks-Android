@@ -17,6 +17,7 @@ class Favorite extends StatefulWidget {
 
 
 class _FavoriteState extends State<Favorite> {
+    static const IconData heart_broken = IconData(0xf0516, fontFamily: 'MaterialIcons');
     @override
     AccountModel account = DBConfig.instance.account;
     List<Book2> favBooks= [];
@@ -129,8 +130,9 @@ class _FavoriteState extends State<Favorite> {
           const IconButton(
             onPressed: null,
             icon: Icon(
-              Icons.favorite,
+              IconData(0xf0516, fontFamily: 'MaterialIcons'),
               color: myRed,
+              size:30,
             ),
           ),
           Divider(color: Colors.red,),
