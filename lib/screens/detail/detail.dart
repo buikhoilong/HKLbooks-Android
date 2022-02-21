@@ -255,11 +255,11 @@ class _DetailState extends State<Detail> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text('Nhà xuất bản'),
-                            Flexible(
-                                child: Container(
+                            Container(
+                              width: 150,
                               child: Text(widget.bookModel.publisher),
-                              padding: const EdgeInsets.only(left: 55),
-                            ))
+                              padding: const EdgeInsets.only(left: 35),
+                            )
                           ],
                         ),
                         Row(

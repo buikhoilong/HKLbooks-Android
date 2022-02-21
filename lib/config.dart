@@ -13,6 +13,8 @@ var formatMoney = NumberFormat.currency(locale: "vi_VN", symbol: "đ");
 
 //URLs
 const baseURL = 'http://10.0.2.2:8000/';
+// const baseURL = 'http://localhost:8000/';
+
 const apiURL = baseURL + 'api/';
 const avatarsImgURL = baseURL + 'storage/admin/images/avatar/';
 const booksImgURL = baseURL + 'storage/admin/images/books/';
