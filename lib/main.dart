@@ -4,6 +4,7 @@ import 'package:hkl_books/provider/cartprovider.dart';
 import 'package:hkl_books/provider/categoryprovider.dart';
 import 'package:hkl_books/provider/favouriteprovider.dart';
 import 'package:hkl_books/provider/promoteprovider.dart';
+import 'package:hkl_books/provider/rateprovider.dart';
 import 'package:hkl_books/screens/loading/loading.dart';
 import 'package:provider/provider.dart';
 import 'config.dart';
@@ -29,8 +30,8 @@ class MyApp extends StatelessWidget {
               create: (_) => CategoryProvider()),
           ChangeNotifierProvider<FavouriteProvider>(
               create: (_) => FavouriteProvider()),
-              ChangeNotifierProvider<CartProvider>(
-              create: (_) => CartProvider()),
+          ChangeNotifierProvider<CartProvider>(create: (_) => CartProvider()),
+          ChangeNotifierProvider<RateProvider>(create: (_) => RateProvider()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

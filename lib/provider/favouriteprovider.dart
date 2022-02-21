@@ -8,7 +8,7 @@ class FavouriteProvider extends ChangeNotifier {
   bool favorites = false;
   List<Book2> favoritebooks = [];
   String Message = '';
-  bool isSuccess=false;
+  bool isSuccess = false;
   bool isFavorite = false;
   bool loading = false;
 

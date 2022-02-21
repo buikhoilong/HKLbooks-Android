@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:hkl_books/config.dart';
 import 'package:hkl_books/models/book2.dart';
 import 'package:hkl_books/models/favourite.dart';
+import 'package:hkl_books/models/rate.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<Book2>> getAllFavBooksByAccountId(accountid) async {
@@ -90,10 +90,6 @@ checkFav(bookid,accountid) async {
   }
 }
 
-
-
-
-
 deleteFavourite(accountid, bookid) async {
   try {
     final response = await http.delete(Uri.parse(apiURL + 'favourite/deleteFav'),
@@ -119,29 +115,6 @@ deleteFavourite(accountid, bookid) async {
 }
 
 
-// Future<Favourite> addFav(accountid, bookid) async {
-//   // List<Favourite> resultFavourite = [];
-//   Favourite resultAccount = Favourite();
 
-//   try {
-//     final response = await http.post(Uri.parse(baseURL + 'favourite/addFav'),
-//         headers: {
-//           HttpHeaders.contentTypeHeader: "application/json",
-//         },
-//         body:
-//             jsonEncode(<String, String>{'AccountId': accountid, 'BookId': bookid}));
-
-//     if (response.statusCode == 200) {
-//       final item = json.decode(response.body);
-//       resultFavourite.add(item);
-//     } else {
-//       // resultFavourite.status = response.statusCode;
-//     }
-//   } catch (e) {
-//     rethrow;
-//   }
-//   // return item;
-//   return resultFavourite;
-// }
 
 
