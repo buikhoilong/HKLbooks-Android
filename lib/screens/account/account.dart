@@ -33,13 +33,13 @@ class _AccountState extends State<Account> {
                       icon: 'user.svg',
                       navigateTo: AccountDetail()),
                   FunctionButton(
-                      name: 'Danh sách yêu thích',
-                      icon: 'order.svg',
-                      navigateTo: Favorite()),
-                  FunctionButton(
                       name: 'Bảo mật tài khoản',
                       icon: 'Lock.svg',
                       navigateTo: AccountSercurity()),
+                  FunctionButton(
+                      name: 'Danh sách yêu thích',
+                      icon: 'heart.svg',
+                      navigateTo: Favorite()),
                   FunctionButton(
                       name: 'Đơn hàng của tôi',
                       icon: 'order.svg',
@@ -52,9 +52,6 @@ class _AccountState extends State<Account> {
                       name: 'Cài đặt',
                       icon: 'setting.svg',
                       navigateTo: Setting()),
-                      
-                  // FunctionButton(
-                  //     name: 'Đăng nhập', icon: 'user.svg', navigateTo: Login()),
                 ],
               ),
             ),

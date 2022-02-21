@@ -37,7 +37,7 @@ class _SideBarState extends State<SideBar> {
     return Drawer(
       elevation: 12,
       child: FutureBuilder(
-          future: DBConfig.instance.getAccount(),
+          future: DBConfig.instance.checkLogin(),
           builder: (context, AsyncSnapshot<AccountModel> snapshot) {
             if (snapshot.hasData) {
               return ListView(
@@ -47,8 +47,6 @@ class _SideBarState extends State<SideBar> {
                     height: 80,
                     child: Image.asset(
                       'assets/images/LogoHKL.png',
-
-                      // fit: BoxFit.cover,
                     ),
                   ),
                   UserAccountsDrawerHeader(
@@ -71,10 +69,6 @@ class _SideBarState extends State<SideBar> {
                     ),
                     decoration: const BoxDecoration(
                       color: myGreen,
-                      // image: DecorationImage(
-                      //   image: AssetImage('assets/images/LogoHKLBooks.jpg'),
-                      //   fit: BoxFit.cover,
-                      // ),
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
                   ),
@@ -125,27 +119,38 @@ class _SideBarState extends State<SideBar> {
                 ],
               );
             }
-            return Column(
-              //padding: EdgeInsets.zero,
+            return ListView(
               children: [
-                const UserAccountsDrawerHeader(
-                  accountName: Text(''),
-                  accountEmail: Text(''),
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                    image: AssetImage('assets/images/LogoHKLBooks.jpg'),
-                    fit: BoxFit.cover,
-                  )),
+                SizedBox(
+                  height: 80,
+                  child: Image.asset(
+                    'assets/images/LogoHKL.png',
+                  ),
                 ),
-                ListTile(
-                  leading: const Icon(Icons.account_circle, color: myGreen),
-                  title: const Text('Đăng nhập'),
-                  onTap: () => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Login())),
-                ),
-                const Divider(),
-                const SizedBox(
-                  height: 20,
+                UserAccountsDrawerHeader(
+                  currentAccountPicture: CircleAvatar(
+                    child: ClipOval(
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                  margin: const EdgeInsets.only(bottom: 8, right: 10, left: 10),
+                  accountName: const Text(''),
+                  accountEmail: ListTile(
+                    leading:
+                        const Icon(Icons.account_circle, color: Colors.white),
+                    title: const Text('Đăng nhập'),
+                    onTap: () => Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Login())),
+                  ),
+                  decoration: const BoxDecoration(
+                    color: myGreen,
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                  ),
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -158,9 +163,47 @@ class _SideBarState extends State<SideBar> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                // const CategoriesList(),
+                CategoriesList(
+                  listCategorite: categoryList,
+                ),
               ],
             );
+            // return Column(
+            //   //padding: EdgeInsets.zero,
+            //   children: [
+            //     const UserAccountsDrawerHeader(
+            //       accountName: Text(''),
+            //       accountEmail: Text(''),
+            //       decoration: BoxDecoration(
+            //           image: DecorationImage(
+            //         image: AssetImage('assets/images/LogoHKLBooks.jpg'),
+            //         fit: BoxFit.cover,
+            //       )),
+            //     ),
+            //     ListTile(
+            //       leading: const Icon(Icons.account_circle, color: myGreen),
+            //       title: const Text('Đăng nhập'),
+            //       onTap: () => Navigator.push(context,
+            //           MaterialPageRoute(builder: (context) => const Login())),
+            //     ),
+            //     const Divider(),
+            //     const SizedBox(
+            //       height: 20,
+            //     ),
+            //     Container(
+            //       alignment: Alignment.center,
+            //       child: const Text(
+            //         'Thể loại',
+            //         style: TextStyle(
+            //           fontFamily: 'BalihoScript',
+            //           fontSize: 30,
+            //         ),
+            //       ),
+            //     ),
+            //     const SizedBox(height: 20),
+            //     // const CategoriesList(),
+            //   ],
+            // );
           }),
     );
   }
