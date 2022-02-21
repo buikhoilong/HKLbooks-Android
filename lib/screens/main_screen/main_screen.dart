@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hkl_books/DB/dbconfig.dart';
 import 'package:hkl_books/models/account.dart';
+import 'package:hkl_books/screens/favorite/favorite.dart';
 import 'package:hkl_books/screens/login/login.dart';
-import 'package:hkl_books/screens/notification/notification.dart';
 import '../account/account.dart';
 import '../cart/cart.dart';
 import '../home/home.dart';
@@ -29,8 +29,9 @@ class _MainScreenState extends State<MainScreen> {
           // print(snapshot.data == null);
           if (snapshot.hasData) {
             listScreen.add(const Cart());
+
+            listScreen.add(const Favorite());
             listScreen.add(const Account());
-            listScreen.add(const Notify());
           } else {
             listScreen.add(const Login());
             listScreen.add(const Login());
@@ -76,19 +77,19 @@ class _MainScreenState extends State<MainScreen> {
                           color: myGreen,
                         )),
                     BottomNavigationBarItem(
+                        icon: SvgPicture.asset("assets/icons/heart.svg"),
+                        label: "Yêu thích",
+                        activeIcon: SvgPicture.asset(
+                          "assets/icons/heart.svg",
+                          color: myGreen,
+                        )),
+                    BottomNavigationBarItem(
                         icon: SvgPicture.asset("assets/icons/account-grey.svg"),
                         label: "Tài khoản",
                         activeIcon: SvgPicture.asset(
                           "assets/icons/account-grey.svg",
                           color: myGreen,
                         )),
-                    BottomNavigationBarItem(
-                        icon: SvgPicture.asset("assets/icons/notify.svg"),
-                        label: "Thông báo",
-                        activeIcon: SvgPicture.asset(
-                          "assets/icons/notify.svg",
-                          color: myGreen,
-                        ))
                   ],
                 ),
               ));
