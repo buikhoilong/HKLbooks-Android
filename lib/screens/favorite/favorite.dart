@@ -26,6 +26,7 @@ class _FavoriteState extends State<Favorite> {
     favourite.getAllBooks(account.id);
     print(account.id);
     favBooks = Provider.of<FavouriteProvider>(context, listen: false).favoritebooks;
+    print(favBooks);
   }
   
   @override

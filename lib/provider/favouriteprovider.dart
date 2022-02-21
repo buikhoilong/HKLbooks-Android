@@ -27,6 +27,7 @@ class FavouriteProvider extends ChangeNotifier{
   checkFavavorite(accountid, bookid) async {
     loading = true;
     isFavorite = await checkFav(accountid, bookid);
+    print(isFavorite);
     loading = false;
     notifyListeners();
   }

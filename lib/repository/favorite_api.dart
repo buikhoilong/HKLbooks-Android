@@ -10,12 +10,13 @@ Future<List<Book2>> getAllFavBooksByAccountId(accountid) async {
   List<Book2> resultFavBooksByAccountId = [];
   try {
     final response = await http.get(
-      Uri.parse(baseURL + 'favourite/getAllBooksByFavourite/$accountid'),
+      Uri.parse(apiURL + 'favourite/getAllBooksByFavourite/$accountid'),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       },
     );
-    print('lenght:${resultFavBooksByAccountId.length}');
+    print(accountid);
+    // print('lenght:${resultFavBooksByAccountId.length}');
     
     if (response.statusCode == 200) {
       final item = json.decode(response.body);
@@ -32,7 +33,7 @@ Future<List<Favourite>> getAllFavouritesBooksByAccountId(context) async {
   List<Favourite> resultFavorite = [];
   try {
     final response = await http.get(
-      Uri.parse(baseURL + 'favourite'),
+      Uri.parse(apiURL + 'favourite'),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       },
@@ -51,7 +52,7 @@ Future<List<Favourite>> getAllFavouritesBooksByAccountId(context) async {
 addFav(accountid, bookid) async {
   Favourite resultFav = Favourite();
   try {
-        final response = await http.post(Uri.parse(baseURL + 'favourite/addFav'),
+        final response = await http.post(Uri.parse(apiURL + 'favourite/addFav'),
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
         },
@@ -69,14 +70,21 @@ addFav(accountid, bookid) async {
   }
 }
 
-checkFav(accountid, bookid) async {
+checkFav(bookid,accountid) async {
   try {
-        final response = await http.post(Uri.parse(baseURL + 'favourite/check/$bookid&$accountid'),
+        final response = await http.post(Uri.parse(apiURL + 'favourite/check/$bookid&$accountid'),
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
         },
         );
-   return response.body;
+        print(response.statusCode);
+    if(response.statusCode == 200){
+      print(accountid);
+      print(bookid);
+      final tam = response.body;
+      print(tam);
+      return response.body;
+    }
   } catch (e) {
     rethrow;
   }

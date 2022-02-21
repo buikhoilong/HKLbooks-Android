@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hkl_books/DB/dbconfig.dart';
 import 'package:hkl_books/models/account.dart';
 import 'package:hkl_books/models/book2.dart';
-import 'package:hkl_books/provider/bookprovider.dart';
 import 'package:hkl_books/provider/favouriteprovider.dart';
 import 'package:hkl_books/screens/cart/cart.dart';
 import 'package:provider/provider.dart';
@@ -23,11 +22,12 @@ class _DetailState extends State<Detail> {
   void initState() {
     super.initState();
     account = DBConfig.instance.account;
-    Provider.of<FavouriteProvider>(context, listen: false)
-        .checkFavavorite(account.id, widget.bookModel.id);
+    Provider.of<FavouriteProvider>(context, listen: false).checkFavavorite(account.id, widget.bookModel.id);
+    print(account.id);
+    print(widget.bookModel.id);
     isFavorited =
         Provider.of<FavouriteProvider>(context, listen: false).isFavorite;
-    //  print(isFavorited);
+
   }
 
 // ignore: non_constant_identifier_names
