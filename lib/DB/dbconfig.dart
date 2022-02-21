@@ -57,6 +57,13 @@ class DBConfig {
     return account;
   }
 
+  Future<AccountModel> checkLogin() async {
+    var dbClient = await db;
+    final queryResult = await dbClient!.query('local_accounts');    
+    account = AccountModel.fromJson(queryResult.first);
+    return account;
+  }
+
   Future<AccountModel> getAccount() async {
     var dbClient = await db;
     final queryResult = await dbClient!.query('local_accounts');

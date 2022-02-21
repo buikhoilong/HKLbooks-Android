@@ -24,9 +24,9 @@ class _MainScreenState extends State<MainScreen> {
     listScreen.add(const Home());
 
     return FutureBuilder(
-        future: DBConfig.instance.getAccount(),
+        future: DBConfig.instance.checkLogin(),
         builder: (context, AsyncSnapshot<AccountModel> snapshot) {
-          //print(snapshot.hasData);
+          // print(snapshot.data == null);
           if (snapshot.hasData) {
             listScreen.add(const Cart());
             listScreen.add(const Account());

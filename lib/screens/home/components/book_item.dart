@@ -44,7 +44,7 @@ class BookItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(5),
       width: (size.width - 16) / 2.5,
-      height: (size.width - 16),
+      // height: (size.width - 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
@@ -58,20 +58,18 @@ class BookItem extends StatelessWidget {
             height: (size.width - 16) / 2,
             child: Image.asset(
               'assets/images/${book2.imgPath}',
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
             ),
           ),
           const SizedBox(
             height: 15,
           ),
-          Flexible(
-            child: Container(
-              padding: const EdgeInsets.only(left: 15),
-              child: Text(
-                book2.name,
+          Container(
+            // width: size.width,
+            padding: const EdgeInsets.only(left: 15),
+            child: Text(book2.name,
                 style: const TextStyle(fontSize: 18),
-              ),
-            ),
+                overflow: TextOverflow.ellipsis),
           ),
           const SizedBox(
             height: 10,
@@ -90,7 +88,11 @@ class BookItem extends StatelessWidget {
             padding: const EdgeInsets.only(left: 15),
             child: Text(
               formatMoney.format(book2.price),
-              style: const TextStyle(fontSize: 15, color: Colors.red),
+              style: const TextStyle(
+                fontSize: 15,
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           const SizedBox(
@@ -100,53 +102,4 @@ class BookItem extends StatelessWidget {
       ),
     );
   }
-
-  // Widget build(BuildContext context) {
-  //   return Container(
-  //     //margin: const EdgeInsets.all(10),
-  //     width: 200,
-  //     height: 380,
-  //     decoration: BoxDecoration(
-  //       borderRadius: BorderRadius.circular(20),
-  //       color: Colors.white,
-  //       border: Border.all(width: 1, color: myGreen),
-  //     ),
-  //     child: Padding(
-  //       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-  //       child: Column(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: [
-  //           Image.asset(
-  //             'assets/images/${book2.imgPath}',
-  //             width: 200,
-  //             height: 200,
-  //           ),
-  //           const SizedBox(height: 20),
-  //           Text(
-  //             book2.price.toString(),
-  //             style: const TextStyle(fontWeight: FontWeight.bold),
-  //           ),
-  //           const SizedBox(
-  //             height: 10,
-  //           ),
-  //           Text(
-  //             book2.name,
-  //             style: const TextStyle(
-  //               fontWeight: FontWeight.bold,
-  //               fontSize: 15,
-  //             ),
-  //             textAlign: TextAlign.center,
-  //           ),
-  //           const SizedBox(
-  //             height: 10,
-  //           ),
-  //           Text(
-  //             book2.author,
-  //             style: const TextStyle(fontSize: 15),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }

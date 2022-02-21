@@ -49,7 +49,7 @@ class _LoadingState extends State<Loading> {
         ),
       ),
       navigator: FutureBuilder(
-        future: DBConfig.instance.getAccount(),
+        future: DBConfig.instance.checkLogin(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return const MainScreen();

@@ -27,8 +27,6 @@ class _LoginState extends State<Login> {
     super.initState();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +51,7 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
                       child: TextField(
                         controller: email,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           errorText:
                               validateEmail ? validateEmailMessage : null,
