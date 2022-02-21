@@ -22,6 +22,7 @@ class _DetailState extends State<Detail> {
   @override
   void initState() {
     super.initState();
+    DBConfig.instance.getAccount();
     account = DBConfig.instance.account;
     Provider.of<FavouriteProvider>(context, listen: false)
         .checkFavavorite(account.id, widget.bookModel.id);
@@ -253,7 +254,11 @@ class _DetailState extends State<Detail> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text('Nhà xuất bản'),
-                            Text(widget.bookModel.publisher)
+                            Flexible(
+                                child: Container(
+                              child: Text(widget.bookModel.publisher),
+                              padding: const EdgeInsets.only(left: 55),
+                            ))
                           ],
                         ),
                         Row(
