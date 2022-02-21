@@ -3,14 +3,14 @@ import 'package:hkl_books/models/book2.dart';
 import 'package:hkl_books/models/favourite.dart';
 import 'package:hkl_books/repository/favorite_api.dart';
 
-class FavouriteProvider extends ChangeNotifier{
+class FavouriteProvider extends ChangeNotifier {
   // List<Favourite> favorites = [];
   List<Book2> favoritebooks = [];
   String Message = '';
   bool isFavorite = false;
   bool loading = false;
 
-    getAllBooks(accountid) async {
+  getAllBooks(accountid) async {
     loading = true;
     favoritebooks = await getAllFavBooksByAccountId(accountid);
     loading = false;
@@ -27,8 +27,8 @@ class FavouriteProvider extends ChangeNotifier{
   checkFavavorite(accountid, bookid) async {
     loading = true;
     isFavorite = await checkFav(accountid, bookid);
+    print('Provider: ' + isFavorite.toString());
     loading = false;
     notifyListeners();
   }
-
 }
