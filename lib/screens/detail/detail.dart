@@ -158,7 +158,7 @@ class _DetailState extends State<Detail> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const Cart())),
+                                                      const CartScreen())),
                                         ),
                                       ),
                                     ],

@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
         builder: (context, AsyncSnapshot<AccountModel> snapshot) {
           // print(snapshot.data == null);
           if (snapshot.hasData) {
-            listScreen.add(const Cart());
+            listScreen.add(const CartScreen());
 
             listScreen.add(const Favorite());
             listScreen.add(const Account());

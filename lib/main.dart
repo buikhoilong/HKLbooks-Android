@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hkl_books/provider/bookprovider.dart';
+import 'package:hkl_books/provider/cartprovider.dart';
 import 'package:hkl_books/provider/categoryprovider.dart';
 import 'package:hkl_books/provider/favouriteprovider.dart';
 import 'package:hkl_books/provider/promoteprovider.dart';
@@ -28,6 +29,8 @@ class MyApp extends StatelessWidget {
               create: (_) => CategoryProvider()),
           ChangeNotifierProvider<FavouriteProvider>(
               create: (_) => FavouriteProvider()),
+              ChangeNotifierProvider<CartProvider>(
+              create: (_) => CartProvider()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
