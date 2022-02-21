@@ -16,14 +16,54 @@ class Favorite extends StatefulWidget {
 
 class _FavoriteState extends State<Favorite> {
   AccountModel account = DBConfig.instance.account;
+  late final Book2 bookModel;
   List<Book2> favBooks = [];
   @override
   void initState() {
     super.initState();
+        DBConfig.instance.getAccount();
+    account = DBConfig.instance.account;
     final favourite = Provider.of<FavouriteProvider>(context, listen: false);
     favourite.getAllBooks(account.id);
     favBooks =
         Provider.of<FavouriteProvider>(context, listen: false).favoritebooks;
+  }
+
+  // ignore: non_constant_identifier_names
+  ShowDialog(context, text) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(text,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontSize: 18,
+                  letterSpacing: 0.5,
+                )),
+            actions: [
+              Container(
+                alignment: Alignment.center,
+                child: Column(
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Đóng'))
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  void toggeFavorite() {
+    // Provider.of<FavouriteProvider>(context, listen: false)
+    //   .deleteFav(account.id, bookModel.id);
+      print(bookModel.id);
   }
 
   @override
@@ -126,14 +166,27 @@ class _FavoriteState extends State<Favorite> {
                     ),
                     Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children:  [
                           IconButton(
-                            onPressed: null,
+                            // ignore: prefer_const_constructors
                             icon: Icon(
-                              Icons.favorite,
+                              // IconData(0xf0516, fontFamily: 'MaterialIcons'),
+                              Icons.no_accounts_rounded,
                               color: myRed,
                             ),
-                          ),
+                            onPressed: (){
+                              setState(() {
+                                  Provider.of<FavouriteProvider>(context, listen: false).deleteFav(account.id, favBooks[index].id);
+                              bool check =Provider.of<FavouriteProvider>(context, listen: false).isSuccess;
+                              if(check){
+                                ShowDialog(context, 'Đã xóa ra khỏi danh sách yêu thích!');
+                              }else{
+                                  ShowDialog(context, 'Xóa thất bại!');
+                              }
+                              
+                                });
+                            },
+                          )
                         ]),
                     const Divider(
                       color: Colors.red,
