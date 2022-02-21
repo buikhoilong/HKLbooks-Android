@@ -15,7 +15,7 @@ Future<List<Book2>> getAllFavBooksByAccountId(accountid) async {
         HttpHeaders.contentTypeHeader: "application/json",
       },
     );
-    print('lenght:${resultFavBooksByAccountId.length}');
+    // print('lenght:${response.statusCode}');
 
     if (response.statusCode == 200) {
       final item = json.decode(response.body);
@@ -50,7 +50,6 @@ Future<List<Favourite>> getAllFavouritesBooksByAccountId(context) async {
 }
 
 addFavourite(accountid, bookid) async {
-  Favourite resultFav = Favourite();
   try {
     final response = await http.post(Uri.parse(apiURL + 'favourite/addFav'),
         headers: {
@@ -60,9 +59,6 @@ addFavourite(accountid, bookid) async {
           'AccountId': accountid,
           'BookId': bookid,
         }));
-        print(accountid);
-        print(bookid);
-        print(response.statusCode);
     if (response.statusCode == 200) {
       return 'Thêm vào danh sách yêu thích thành công!';
     } else {
@@ -81,7 +77,34 @@ checkFav(bookid,accountid) async {
         HttpHeaders.contentTypeHeader: "application/json",
       },
     );
-    print(response.statusCode);
+    if (response.statusCode == 200) {
+      return true;
+    }
+    if (response.statusCode == 400) {
+      return false;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    rethrow;
+  }
+}
+
+
+
+
+
+deleteFavourite(accountid, bookid) async {
+  try {
+    final response = await http.delete(Uri.parse(apiURL + 'favourite/deleteFav'),
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+        },
+        body: jsonEncode(<String, String>{
+          'AccountId': accountid,
+          'BookId': bookid,
+        }));
+        // print('sttCode: ${response.statusCode}');
     if (response.statusCode == 200) {
       return true;
     }
