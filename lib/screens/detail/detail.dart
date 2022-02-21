@@ -1,11 +1,8 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hkl_books/DB/dbconfig.dart';
 import 'package:hkl_books/models/account.dart';
 import 'package:hkl_books/models/book2.dart';
-import 'package:hkl_books/provider/accountprovider.dart';
 import 'package:hkl_books/provider/bookprovider.dart';
 import 'package:hkl_books/provider/favouriteprovider.dart';
 import 'package:hkl_books/screens/cart/cart.dart';
@@ -20,22 +17,21 @@ class Detail extends StatefulWidget {
 
 class _DetailState extends State<Detail> {
   AccountModel account = AccountModel();
-  bool isFavorited = false;
+  late bool isFavorited;
 
   @override
   void initState() {
     super.initState();
-    Provider.of<BookProvider>(context, listen: false).getProduct(context);
     account = DBConfig.instance.account;
-     Provider.of<FavouriteProvider>(context, listen: false).checkFavavorite(account.id, widget.bookModel.id);
-     isFavorited = Provider.of<FavouriteProvider>(context, listen: false).isFavorite;
+    Provider.of<FavouriteProvider>(context, listen: false)
+        .checkFavavorite(account.id, widget.bookModel.id);
+    isFavorited =
+        Provider.of<FavouriteProvider>(context, listen: false).isFavorite;
     //  print(isFavorited);
   }
 
-  
 // ignore: non_constant_identifier_names
-ShowDialog(context, text) {
-   
+  ShowDialog(context, text) {
     return showDialog(
         context: context,
         builder: (context) {
@@ -67,13 +63,14 @@ ShowDialog(context, text) {
 
   void toggeFavorite() {
     if (isFavorited == true) {
-        ShowDialog(context,"Đã có trong danh sach yêu thích");
-      } else {
-        Provider.of<FavouriteProvider>(context, listen: false).addFav(account.id,widget.bookModel.id);
-        String mess = Provider.of<FavouriteProvider>(context, listen: false).Message;
-        print(mess);
-        ShowDialog(context, mess);
-      }
+      ShowDialog(context, "Đã có trong danh sach yêu thích");
+    } else {
+      Provider.of<FavouriteProvider>(context, listen: false)
+          .addFav(account.id, widget.bookModel.id);
+      String mess =
+          Provider.of<FavouriteProvider>(context, listen: false).Message;
+      ShowDialog(context, mess);
+    }
   }
 
   @override
@@ -101,13 +98,13 @@ ShowDialog(context, text) {
                       children: [
                         IconButton(
                           onPressed: () => Navigator.pop(context),
-                          icon: Icon(Icons.arrow_back_ios),
+                          icon: const Icon(Icons.arrow_back_ios),
                           color: Colors.white,
                           iconSize: 30,
                         )
                       ],
                     ),
-                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                   ),
                   // ignore: avoid_unnecessary_containers
                   Container(
@@ -121,24 +118,19 @@ ShowDialog(context, text) {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      // ignore: avoid_unnecessary_containers
                                       Container(
-                                        child: Container(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              150, 0, 30, 10),
-                                          child: IconButton(
-                                            padding: const EdgeInsets.all(0),
-                                            alignment: Alignment.centerRight,
-                                            icon: (isFavorited
-                                                ? const Icon(Icons.favorite)
-                                                : const Icon(
-                                                    Icons.favorite_border)),
-                                            color: Colors.red[500],
-                                            onPressed: toggeFavorite,
-                                          ),
-                                        ),
                                         padding: const EdgeInsets.fromLTRB(
-                                            0, 10, 10, 0),
+                                            150, 0, 30, 10),
+                                        child: IconButton(
+                                          padding: const EdgeInsets.all(0),
+                                          alignment: Alignment.centerRight,
+                                          icon: (isFavorited
+                                              ? const Icon(Icons.favorite)
+                                              : const Icon(
+                                                  Icons.favorite_border)),
+                                          color: Colors.red[500],
+                                          onPressed: toggeFavorite,
+                                        ),
                                       ),
                                       // ignore: avoid_unnecessary_containers
                                       Container(
@@ -164,7 +156,7 @@ ShowDialog(context, text) {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Cart())),
+                                                      const Cart())),
                                         ),
                                       ),
                                     ],
@@ -177,7 +169,7 @@ ShowDialog(context, text) {
                                 child: Flexible(
                                   child: Text(
                                     widget.bookModel.detail,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 15,
                                     ),
                                     // maxLines: 3,
@@ -212,18 +204,18 @@ ShowDialog(context, text) {
                                     children: [
                                       Text(
                                         widget.bookModel.name,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontFamily: 'BalihoScript',
                                             fontSize: 25,
                                             color: Colors.white),
                                         textAlign: TextAlign.center,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       Text(
                                         "- ${widget.bookModel.author} -",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontFamily: 'BalihoScript',
                                             fontSize: 25,
                                             color: Colors.white),
@@ -244,7 +236,7 @@ ShowDialog(context, text) {
                   Container(
                     child: Column(
                       children: [
-                        Text('Thông tin chi tiết'),
+                        const Text('Thông tin chi tiết'),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: const [
@@ -255,21 +247,21 @@ ShowDialog(context, text) {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Thể loại'),
+                            const Text('Thể loại'),
                             Text(widget.bookModel.categoryName)
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Tác giả'),
+                            const Text('Tác giả'),
                             Text(widget.bookModel.author)
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Giá bán lẻ'),
+                            const Text('Giá bán lẻ'),
                             Text(widget.bookModel.price.toString())
                           ],
                         ),
@@ -287,7 +279,7 @@ ShowDialog(context, text) {
                     child: Column(
                       children: <Widget>[
                         Container(
-                          child: Text(
+                          child: const Text(
                             "BẠN CÓ THỂ THÍCH",
                             style: TextStyle(fontSize: 20),
                           ),
@@ -321,7 +313,7 @@ ShowDialog(context, text) {
                   Container(
                     child: Column(
                       children: [
-                        Text(
+                        const Text(
                           'Đánh Giá - Nhận Xét Từ Khách Hàng',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
@@ -331,7 +323,7 @@ ShowDialog(context, text) {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                const Text(
                                   '4.8',
                                   style: TextStyle(
                                       fontSize: 50,
@@ -345,33 +337,33 @@ ShowDialog(context, text) {
                                       children: [
                                         IconButton(
                                           onPressed: () {},
-                                          icon: Icon(Icons.star_outlined),
+                                          icon: const Icon(Icons.star_outlined),
                                           color: Colors.yellow,
                                         ),
                                         IconButton(
                                           onPressed: () {},
-                                          icon: Icon(Icons.star_outlined),
+                                          icon: const Icon(Icons.star_outlined),
                                           color: Colors.yellow,
                                         ),
                                         IconButton(
                                           onPressed: () {},
-                                          icon: Icon(Icons.star_outlined),
+                                          icon: const Icon(Icons.star_outlined),
                                           color: Colors.yellow,
                                         ),
                                         IconButton(
                                           onPressed: () {},
-                                          icon: Icon(Icons.star_outlined),
+                                          icon: const Icon(Icons.star_outlined),
                                           color: Colors.yellow,
                                         ),
                                         IconButton(
                                           onPressed: () {},
-                                          icon: Icon(Icons.star_outlined),
+                                          icon: const Icon(Icons.star_outlined),
                                           color: Colors.yellow,
                                         ),
                                       ],
                                     ),
                                     Container(
-                                      child: Text(
+                                      child: const Text(
                                         "541 nhận xét",
                                         textAlign: TextAlign.left,
                                       ),
@@ -392,7 +384,7 @@ ShowDialog(context, text) {
                                   children: [
                                     IconButton(
                                       onPressed: () {},
-                                      icon: Icon(Icons
+                                      icon: const Icon(Icons
                                           .supervised_user_circle_outlined),
                                       iconSize: 60,
                                       color: Colors.lightGreen,
@@ -400,7 +392,7 @@ ShowDialog(context, text) {
                                     Column(
                                       children: [
                                         Container(
-                                          child: Text(
+                                          child: const Text(
                                             "Cực kỳ hài lòng",
                                             textAlign: TextAlign.left,
                                           ),
@@ -411,27 +403,32 @@ ShowDialog(context, text) {
                                           children: [
                                             IconButton(
                                               onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
                                               color: Colors.yellow,
                                             ),
                                             IconButton(
                                               onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
                                               color: Colors.yellow,
                                             ),
                                             IconButton(
                                               onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
                                               color: Colors.yellow,
                                             ),
                                             IconButton(
                                               onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
                                               color: Colors.yellow,
                                             ),
                                             IconButton(
                                               onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
                                               color: Colors.yellow,
                                             ),
                                           ],
@@ -440,7 +437,145 @@ ShowDialog(context, text) {
                                     )
                                   ],
                                 ),
-                                Text(
+                                const Text(
+                                    "Nhận sách trước thời hạn giao hàng. Sách không được bọc lại nên gáy hơi móp xíu nhưng không sao. Sách thơm và nội dung đọc okay lắm. Cảm ơn shop và anh shipper ạ.")
+                              ],
+                            ),
+                            padding: const EdgeInsets.fromLTRB(40, 10, 40, 20),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 0.5, color: Colors.grey))),
+                        Container(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons
+                                          .supervised_user_circle_outlined),
+                                      color: Colors.lightGreen,
+                                      iconSize: 60,
+                                    ),
+                                    Column(
+                                      children: [
+                                        Container(
+                                          child: const Text(
+                                            "Cực kỳ hài lòng",
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 0, 120, 0),
+                                        ),
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
+                                              color: Colors.yellow,
+                                            ),
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
+                                              color: Colors.yellow,
+                                            ),
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
+                                              color: Colors.yellow,
+                                            ),
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
+                                              color: Colors.yellow,
+                                            ),
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
+                                              color: Colors.yellow,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                const Text(
+                                    "Nhận sách trước thời hạn giao hàng. Sách không được bọc lại nên gáy hơi móp xíu nhưng không sao. Sách thơm và nội dung đọc okay lắm. Cảm ơn shop và anh shipper ạ.")
+                              ],
+                            ),
+                            padding: const EdgeInsets.fromLTRB(40, 10, 40, 20),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 0.5, color: Colors.grey))),
+                        Container(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons
+                                          .supervised_user_circle_outlined),
+                                      color: Colors.lightGreen,
+                                      iconSize: 60,
+                                    ),
+                                    Column(
+                                      children: [
+                                        Container(
+                                          child: const Text(
+                                            "Cực kỳ hài lòng",
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          margin: const EdgeInsets.fromLTRB(
+                                              0, 0, 120, 0),
+                                        ),
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
+                                              color: Colors.yellow,
+                                            ),
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
+                                              color: Colors.yellow,
+                                            ),
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
+                                              color: Colors.yellow,
+                                            ),
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
+                                              color: Colors.yellow,
+                                            ),
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                  Icons.star_outlined),
+                                              color: Colors.yellow,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                const Text(
                                     "Nhận sách trước thời hạn giao hàng. Sách không được bọc lại nên gáy hơi móp xíu nhưng không sao. Sách thơm và nội dung đọc okay lắm. Cảm ơn shop và anh shipper ạ.")
                               ],
                             ),
@@ -632,135 +767,7 @@ ShowDialog(context, text) {
                                     )
                                   ],
                                 ),
-                                Text(
-                                    "Nhận sách trước thời hạn giao hàng. Sách không được bọc lại nên gáy hơi móp xíu nhưng không sao. Sách thơm và nội dung đọc okay lắm. Cảm ơn shop và anh shipper ạ.")
-                              ],
-                            ),
-                            padding: const EdgeInsets.fromLTRB(40, 10, 40, 20),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 0.5, color: Colors.grey))),
-                        Container(
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons
-                                          .supervised_user_circle_outlined),
-                                      color: Colors.lightGreen,
-                                      iconSize: 60,
-                                    ),
-                                    Column(
-                                      children: [
-                                        Container(
-                                          child: Text(
-                                            "Cực kỳ hài lòng",
-                                            textAlign: TextAlign.left,
-                                          ),
-                                          margin: const EdgeInsets.fromLTRB(
-                                              0, 0, 120, 0),
-                                        ),
-                                        Row(
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
-                                              color: Colors.yellow,
-                                            ),
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
-                                              color: Colors.yellow,
-                                            ),
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
-                                              color: Colors.yellow,
-                                            ),
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
-                                              color: Colors.yellow,
-                                            ),
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
-                                              color: Colors.yellow,
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                Text(
-                                    "Nhận sách trước thời hạn giao hàng. Sách không được bọc lại nên gáy hơi móp xíu nhưng không sao. Sách thơm và nội dung đọc okay lắm. Cảm ơn shop và anh shipper ạ.")
-                              ],
-                            ),
-                            padding: const EdgeInsets.fromLTRB(40, 10, 40, 20),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 0.5, color: Colors.grey))),
-                        Container(
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons
-                                          .supervised_user_circle_outlined),
-                                      color: Colors.lightGreen,
-                                      iconSize: 60,
-                                    ),
-                                    Column(
-                                      children: [
-                                        Container(
-                                          child: Text(
-                                            "Cực kỳ hài lòng",
-                                            textAlign: TextAlign.left,
-                                          ),
-                                          margin: const EdgeInsets.fromLTRB(
-                                              0, 0, 120, 0),
-                                        ),
-                                        Row(
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
-                                              color: Colors.yellow,
-                                            ),
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
-                                              color: Colors.yellow,
-                                            ),
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
-                                              color: Colors.yellow,
-                                            ),
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
-                                              color: Colors.yellow,
-                                            ),
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(Icons.star_outlined),
-                                              color: Colors.yellow,
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                Text(
+                                const Text(
                                     "Nhận sách trước thời hạn giao hàng. Sách không được bọc lại nên gáy hơi móp xíu nhưng không sao. Sách thơm và nội dung đọc okay lắm. Cảm ơn shop và anh shipper ạ.")
                               ],
                             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hkl_books/models/book2.dart';
 import 'package:hkl_books/models/favourite.dart';
-import 'package:hkl_books/repository/api.dart';
+import 'package:hkl_books/repository/favorite_api.dart';
 
 class FavouriteProvider extends ChangeNotifier{
   // List<Favourite> favorites = [];

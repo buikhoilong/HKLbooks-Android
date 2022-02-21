@@ -42,13 +42,27 @@ class DBConfig {
     return account;
   }
 
+  // ignore: non_constant_identifier_names
+  Future<AccountModel> updateAccount(Id, key, value) async {
+    Map<String, dynamic> row = {
+      key: value,
+    };
+    var dbClient = await db;
+    await dbClient!
+        .update('local_accounts', row, where: 'Id = ?', whereArgs: [Id]);
+    // print("Insert thành công");
+    // print(queryResult);
+    getAccount();
+    print('DBconfig: ${account.name}');
+    return account;
+  }
+
   Future<AccountModel> getAccount() async {
     var dbClient = await db;
     final queryResult = await dbClient!.query('local_accounts');
     account = AccountModel.fromJson(queryResult.first);
     return account;
   }
-
 
   Future<AccountModel?> deleteAccount(AccountModel? account) async {
     var dbClient = await db;

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hkl_books/config.dart';
+import 'package:hkl_books/models/book2.dart';
 import 'package:hkl_books/models/promote.dart';
+import 'package:hkl_books/provider/bookprovider.dart';
 import 'package:hkl_books/provider/promoteprovider.dart';
+import 'package:hkl_books/repository/promote_api.dart';
 import 'package:hkl_books/screens/home/components/banner.dart';
 import 'package:hkl_books/screens/home/components/sidebar.dart';
 import 'package:provider/provider.dart';
@@ -16,14 +19,16 @@ class Home extends StatefulWidget {
 }
 
 class _MycustomState extends State<Home> {
+  List<Promote> listPromotes = [];
+  Map<String, List<Book2>> booksByAllPromoteTypes = {};
+  List<Book2> listBooks = [];
   @override
   void initState() {
     super.initState();
     final promotesMdl = Provider.of<PromoteProvider>(context, listen: false);
     promotesMdl.getPromote(context);
+    listPromotes = promotesMdl.promotes;
   }
-
-  late Promote promote;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +43,7 @@ class _MycustomState extends State<Home> {
             prefixIcon: const Icon(
               Icons.search,
               color: Colors.white,
-              size: 25,
+              size: 30,
             ),
             hintText: 'Nhập từ khóa tìm kiếm',
             hintStyle: const TextStyle(color: Colors.white),
@@ -51,31 +56,49 @@ class _MycustomState extends State<Home> {
           style: const TextStyle(color: myGrey),
         ),
       ),
-      body: Column(
+      body: ListView(
         children: [
           const SizedBox(height: 20),
           const MyBanner(),
-          Consumer<PromoteProvider>(builder: (context, data, child) {
-            return Expanded(
-              child: ListView.builder(
-                  itemCount: data.promotes.length,
-                  itemBuilder: (context, index) {
-                    if (data.promotes[index].status == 1) {
-                      return Column(
-                        children: [
-                          SessionTitle(
-                            title: data.promotes[index].name.toString(),
-                            promoteId: data.promotes[index].id.toString(),
-                          ),
-                          ListItemsByPromoteId(
-                              PromoteId: data.promotes[index].id.toString()),
-                        ],
-                      );
-                    }
-                    return Container();
-                  }),
+          // Column(
+          //   children: [
+          //     SessionTitle(
+          //       promote: listPromotes[0],
+          //       listBook: listBooks,
+          //     ),
+          //     ListBookItem(listBook: listBooks),
+          //   ],
+          // ),
+
+          ...listPromotes.map<Widget>((item) {
+            return FutureBuilder(
+              future: PromoteAPI.instance.getAllBooksByPromoteId(item.id),
+              builder: (context, snapshot) {
+                return Column(
+                  children: [
+                    SessionTitle(
+                      promote: item,
+                      listBook: snapshot.data,
+                    ),
+                    if (snapshot.hasData) ...[
+                      ListBookItem(listBook: snapshot.data as List<Book2>)
+                    ] else
+                      ...[],
+                  ],
+                );
+              },
             );
-          }),
+          }).toList(),
+
+          // Column(
+          //   children: [
+          //     SessionTitle(
+          //       promote: listPromotes[0],
+          //       listBook: listBooks,
+          //     ),
+          //     ListBookItem(listBook: listBooks),
+          //   ],
+          // )
         ],
       ),
     );
